@@ -1,4 +1,5 @@
 import json
+import time
 
 letter_value = {
     'a': 1,
@@ -45,7 +46,8 @@ def load_words():
             if (len(key) == 6):
                 word_value = calculate_word_value(key)
                 six_letter_words_json[key] = { 
-                    key: value,
+                    "word": key,
+                    "definition": value,
                     "value": word_value
                 }
         json.dump(six_letter_words_json, six_letter_words_file, indent=4)  
@@ -54,10 +56,17 @@ def load_words():
 def rank_words_by_value():
     with open("six_letter_words.json", "r") as six_letter_words_file:
         six_letter_words_json = json.load(six_letter_words_file)
+        occurences = { }
         for key, value in six_letter_words_json.items():
-            print(key, value[0])
-        # for word in sorted_words:
-        #     print(word[0], word[1]['value'])
+            word_value = value["value"]
+            if word_value in occurences:
+               occurences[word_value] += 1
+            else:
+                occurences[word_value] = 1
+        print("Occurences sorted by value frequency: ")
+        print(dict(sorted(occurences.items(), key=lambda item: item[1])))
+        print("\nOccurences sorted by key's numeric value: ")
+        print(dict(sorted(occurences.items(), key=lambda item: item[0])))
 
 
 if __name__ == "__main__":
