@@ -37,16 +37,29 @@ def calculate_word_value(word):
     return value
 
 
-with open('words.json') as words_file, open("six_letter_words.json", "r+") as six_letter_words_file:
-    word_json = json.load(words_file)
-    six_letter_json = json.load(six_letter_words_file)
-    for key, value in word_json.items():
-        if (len(key) == 6):
-            wordJSON = {
-                key: value,
-                "value": calculate_word_value(key),
-            }
-            six_letter_json.append(wordJSON)
-    json.dump(six_letter_json, six_letter_words_file, 
-                        indent=4,  
-                        separators=(',',': '))
+def load_words():
+    with open('words.json') as words_file, open("six_letter_words.json", "r+") as six_letter_words_file:
+        word_json = json.load(words_file)
+        six_letter_words_json = { }
+        for key, value in word_json.items():
+            if (len(key) == 6):
+                word_value = calculate_word_value(key)
+                six_letter_words_json[key] = { 
+                    key: value,
+                    "value": word_value
+                }
+        json.dump(six_letter_words_json, six_letter_words_file, indent=4)  
+
+
+def rank_words_by_value():
+    with open("six_letter_words.json", "r") as six_letter_words_file:
+        six_letter_words_json = json.load(six_letter_words_file)
+        for key, value in six_letter_words_json.items():
+            print(key, value[0])
+        # for word in sorted_words:
+        #     print(word[0], word[1]['value'])
+
+
+if __name__ == "__main__":
+    load_words()
+    rank_words_by_value()
