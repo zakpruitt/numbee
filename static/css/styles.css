@@ -2,12 +2,14 @@
 
 body {
     background-color: #ffffff;
-    font-family: "Righteous", cursive;
+    font-family: "Righteous";
 }
 
-.center {
+.title {
     margin: 0 auto;
     margin-top: -1px;
+    /* color: #fff897;
+    text-shadow: black 0px 0px 2px; */
 }
 
 .heading_bar {
