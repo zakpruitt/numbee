@@ -22,8 +22,8 @@ body {
 
 .tile {
     overflow-x: hidden;
-    border-radius: 10px;
-    width: 100%;
+    border-radius: 5px;
+    width: 80%;
     height: 150%;
     display: inline-flex;
     justify-content: center;
