@@ -1,6 +1,5 @@
 import json
 import random
-from numpy import delete
 
 letter_value = {
     'a': 1,
@@ -39,12 +38,14 @@ def calculate_word_value(word):
     return value
 
 
-def load_words():
+def load_words(word_to_remove = "none"):
     with open('words.json') as words_file, open("six_letter_words.json", "r+") as six_letter_words_file:
         word_json = json.load(words_file)
         six_letter_words_json = {}
         for key, value in word_json.items():
-            if (len(key) == 6):
+            if (key == word_to_remove):
+                continue
+            elif (len(key) == 6):
                 word_value = calculate_word_value(key)
                 six_letter_words_json[key] = {
                     "word": key,
@@ -72,20 +73,19 @@ def rank_words_by_value():
 
 def delete_word(word):
     with open("six_letter_words.json", "r+") as six_letter_words_file:
-        six_letter_words_json = json.load(six_letter_words_file)
-        del six_letter_words_json[word]
         six_letter_words_file.truncate(0)
-        json.dump(six_letter_words_json, six_letter_words_file, indent=4)
+        load_words(word)
+
 
 def select_word():
     with open("six_letter_words.json", "r") as six_letter_words_file:
         six_letter_words_json = json.load(six_letter_words_file)
         chosen_word = random.choice(list(six_letter_words_json.keys()))
         chosen_word_json = six_letter_words_json[chosen_word]
-        del six_letter_words_json[chosen_word]
-        json.dump(six_letter_words_json, six_letter_words_file, indent=4)
+        delete_word(chosen_word)
         return chosen_word_json
 
+
 if __name__ == "__main__":
-    #load_words()
+    load_words()
     print(select_word())
