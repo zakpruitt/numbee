@@ -1,42 +1,86 @@
-@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
 
 body {
-    background-color: #ffffff;
-    font-family: "Righteous";
+  background-color: #ffffff;
+  font-family: "Righteous";
 }
 
 .title {
-    margin: 0 auto;
-    margin-top: -1px;
-    /* color: #fff897;
+  margin: 0 auto;
+  margin-top: -1px;
+  /* color: #fff897;
     text-shadow: black 0px 0px 2px; */
 }
 
 .heading_bar {
-    margin-top: 1px;
+  margin-top: 1px;
 }
 
 .heading_buttons {
-    margin-top: 3%;
+  margin-top: 3%;
 }
 
 .tile {
-    overflow-x: hidden;
-    border-radius: 5px;
-    width: 80%;
-    height: 150%;
+  overflow-x: hidden;
+  border-radius: 5px;
+  width: 80%;
+  height: 150%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  line-height: 2rem;
+  font-weight: bold;
+  vertical-align: middle;
+  box-sizing: border-box;
+  color: white;
+  background-color: #000000d3;
+  text-transform: lowercase;
+  user-select: none;
+}
+
+.tile-placeholder {
+  opacity: 0;
+}
+
+.first-keyboard {
+  max-width: 95%;
+  margin-left: 3%;
+  margin-top: 15%;
+}
+
+.second-keyboard {
+  max-width: 95%;
+  margin-left: 4%;
+}
+
+.third-keyboard {
+  max-width: 95%;
+  margin-left: 4%;
+}
+
+.key {
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  max-width: 9%;
+  margin-right: 1%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  text-transform: lowercase;
+}
+
+.special-key {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+    max-width: 12%;
+    margin-right: 1%;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
-    line-height: 2rem;
-    font-weight: bold;
     vertical-align: middle;
-    box-sizing: border-box;
-    color: white;
-    background-color: #000000be;
-    text-transform: uppercase;
-    user-select: none;
+    text-transform: lowercase;
 }
 
 #game {
