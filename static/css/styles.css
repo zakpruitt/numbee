@@ -5,6 +5,15 @@ body {
   font-family: "Righteous";
 }
 
+#game {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .title {
   margin: 0 auto;
   margin-top: -1px;
@@ -72,22 +81,13 @@ body {
 }
 
 .special-key {
-    font-size: 1.5rem;
-    line-height: 1.5rem;
-    max-width: 12%;
-    margin-right: 1%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    vertical-align: middle;
-    text-transform: lowercase;
-}
-
-#game {
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  max-width: 12%;
+  margin-right: 1%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  text-transform: lowercase;
 }
