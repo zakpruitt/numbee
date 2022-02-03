@@ -1,5 +1,6 @@
 import json
-import time
+import random
+from numpy import delete
 
 letter_value = {
     'a': 1,
@@ -41,26 +42,26 @@ def calculate_word_value(word):
 def load_words():
     with open('words.json') as words_file, open("six_letter_words.json", "r+") as six_letter_words_file:
         word_json = json.load(words_file)
-        six_letter_words_json = { }
+        six_letter_words_json = {}
         for key, value in word_json.items():
             if (len(key) == 6):
                 word_value = calculate_word_value(key)
-                six_letter_words_json[key] = { 
+                six_letter_words_json[key] = {
                     "word": key,
                     "definition": value,
                     "value": word_value
                 }
-        json.dump(six_letter_words_json, six_letter_words_file, indent=4)  
+        json.dump(six_letter_words_json, six_letter_words_file, indent=4)
 
 
 def rank_words_by_value():
     with open("six_letter_words.json", "r") as six_letter_words_file:
         six_letter_words_json = json.load(six_letter_words_file)
-        occurences = { }
+        occurences = {}
         for key, value in six_letter_words_json.items():
             word_value = value["value"]
             if word_value in occurences:
-               occurences[word_value] += 1
+                occurences[word_value] += 1
             else:
                 occurences[word_value] = 1
         print("Occurences sorted by value frequency: ")
@@ -69,6 +70,22 @@ def rank_words_by_value():
         print(dict(sorted(occurences.items(), key=lambda item: item[0])))
 
 
+def delete_word(word):
+    with open("six_letter_words.json", "r+") as six_letter_words_file:
+        six_letter_words_json = json.load(six_letter_words_file)
+        del six_letter_words_json[word]
+        six_letter_words_file.truncate(0)
+        json.dump(six_letter_words_json, six_letter_words_file, indent=4)
+
+def select_word():
+    with open("six_letter_words.json", "r") as six_letter_words_file:
+        six_letter_words_json = json.load(six_letter_words_file)
+        chosen_word = random.choice(list(six_letter_words_json.keys()))
+        chosen_word_json = six_letter_words_json[chosen_word]
+        del six_letter_words_json[chosen_word]
+        json.dump(six_letter_words_json, six_letter_words_file, indent=4)
+        return chosen_word_json
+
 if __name__ == "__main__":
-    load_words()
-    rank_words_by_value()
+    #load_words()
+    print(select_word())
