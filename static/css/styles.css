@@ -16,6 +16,7 @@ body {
 
 .title {
   margin: 0 auto;
+  font-size: 2.5em;
   margin-top: -1px;
   /* color: #fff897;
     text-shadow: black 0px 0px 2px; */
@@ -27,6 +28,10 @@ body {
 
 .heading_buttons {
   margin-top: 3%;
+}
+
+.number {
+    color: #6c757d;
 }
 
 .tile {
@@ -55,7 +60,7 @@ body {
 .first-keyboard {
   max-width: 95%;
   margin-left: 3%;
-  margin-top: 15%;
+  margin-top: 18%;
 }
 
 .second-keyboard {
