@@ -88,4 +88,3 @@ def select_word():
 
 if __name__ == "__main__":
     load_words()
-    print(select_word())
