@@ -1,3 +1,28 @@
-h1 {
-    color: red;
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+body {
+    background-color: #ffffff;
+    font-family: "Righteous", cursive;
+}
+
+.center {
+    margin: 0 auto;
+    margin-top: -1px;
+}
+
+.heading_bar {
+    margin-top: 1px;
+}
+
+.heading_buttons {
+    margin-top: 3%;
+}
+
+#game {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
