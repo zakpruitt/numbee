@@ -5,6 +5,10 @@ const endingTiles = ['tile6', 'tile12', 'tile18', 'tile24', 'tile30', 'tile36'];
 var currentTile = $('#tile1');
 
 $(".key").click(function () {
+    if (jQuery.inArray(currentTile.attr('id'), endingTiles) != -1
+        && currentTile.text() != "") {
+        return;
+    } 
     var key = this.innerHTML;
     currentTile.text(key);
     incrimentTile();
@@ -95,27 +99,32 @@ $("#delete").click(function () {
     });
     //#endregion
 
-    decrementTile();
     currentTile.text('');
     if (jQuery.inArray(currentTile.attr('id'), beginningTiles) != -1) {
         // found in beginning tiles
         currentTile.append('<placeholder class="tile-placeholder">A</placeholder>')
     } 
+    decrementTile();
     burst.play();
 });
 
 // Helper Functions
 
 function incrimentTile() {
+    if (jQuery.inArray(currentTile.attr('id'), endingTiles) != -1)
+        return;
     var tile = parseInt(currentTile.attr('id').substring(4));
     tile++;
     currentTile = $('#tile' + tile);
+    console.log("current tile: " + currentTile.attr("id"));
 }
 
 function decrementTile() {
-    if (jQuery.inArray(currentTile.attr('id'), beginningTiles) != -1)
+    if (jQuery.inArray(currentTile.attr('id'), beginningTiles) != -1) {
         return;
+    }
     var tile = parseInt(currentTile.attr('id').substring(4));
     tile--;
     currentTile = $('#tile' + tile);
+    console.log("current tile: " + currentTile.attr("id"));
 }
