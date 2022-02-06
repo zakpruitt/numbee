@@ -5,8 +5,7 @@ const endingTiles = ['tile6', 'tile12', 'tile18', 'tile24', 'tile30', 'tile36'];
 var currentTile = $('#tile1');
 
 $(".key").click(function () {
-    if (jQuery.inArray(currentTile.attr('id'), endingTiles) != -1
-        && currentTile.text() != "") {
+    if (jQuery.inArray(currentTile.attr('id'), endingTiles) != -1 && currentTile.text() != "") {
         return;
     } 
     var key = this.innerHTML;
@@ -55,6 +54,30 @@ $("#submit").click(function () {
     });
     //#endregion
 
+    if (jQuery.inArray(currentTile.attr('id'), endingTiles) != -1 && currentTile.text() != "") {
+        console.log("submittable");
+        // check submission
+        switch(currentTile.attr('id')) {
+            case 'tile6':
+                currentTile = $('#tile7');
+                break;
+            case 'tile12':
+                currentTile = $('#tile13');
+                break;
+            case 'tile18':
+                currentTile = $('#tile19');
+                break;
+            case 'tile24':
+                currentTile = $('#tile25');
+                break;
+            case 'tile30':
+                currentTile = $('#tile31');
+                break;
+            case 'tile36':
+                // end game
+                break;
+        }
+    } 
     burst.play();
 });
 
