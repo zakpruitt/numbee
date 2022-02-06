@@ -50,7 +50,7 @@ body {
   box-sizing: border-box;
   color: white;
   background-color: #000000d3;
-  text-transform: lowercase;
+  text-transform: uppercase;
   user-select: none;
 }
 

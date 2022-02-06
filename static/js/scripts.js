@@ -1,4 +1,24 @@
 
+var currentTile = $('#tile1');
+
+function pressKey(element) {
+    var key = element.innerHTML;
+    currentTile.text(key);
+    incrimentTile();
+}
+
+function incrimentTile() {
+    var tile = parseInt(currentTile.attr('id').substring(4));
+    tile++;
+    currentTile = $('#tile' + tile);
+}
+
+function decrementTile() {
+    var tile = parseInt(currentTile.attr('id').substring(4));
+    tile--;
+    currentTile = $('#tile' + tile);
+}
+
 $("#submit").click(function () {
     const itemDim = this.getBoundingClientRect(),
         itemSize = {
@@ -80,5 +100,8 @@ $("#delete").click(function () {
         }
     });
 
+    
+    currentTile.text('');
+    decrementTile();
     burst.play();
 });
