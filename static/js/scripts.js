@@ -1,25 +1,17 @@
 
+const beginningTiles = ['tile1', 'tile7', 'tile13', 'tile19', 'tile25', 'tile31'];
+const endingTiles = ['tile6', 'tile12', 'tile18', 'tile24', 'tile30', 'tile36'];
+
 var currentTile = $('#tile1');
 
-function pressKey(element) {
-    var key = element.innerHTML;
+$(".key").click(function () {
+    var key = this.innerHTML;
     currentTile.text(key);
     incrimentTile();
-}
-
-function incrimentTile() {
-    var tile = parseInt(currentTile.attr('id').substring(4));
-    tile++;
-    currentTile = $('#tile' + tile);
-}
-
-function decrementTile() {
-    var tile = parseInt(currentTile.attr('id').substring(4));
-    tile--;
-    currentTile = $('#tile' + tile);
-}
+});
 
 $("#submit").click(function () {
+    //#region mo.js
     const itemDim = this.getBoundingClientRect(),
         itemSize = {
             x: itemDim.right - itemDim.left,
@@ -57,11 +49,13 @@ $("#submit").click(function () {
             isShowEnd: false,
         }
     });
+    //#endregion
 
     burst.play();
 });
 
 $("#delete").click(function () {
+    //#region mo.js
     const itemDim = this.getBoundingClientRect(),
         itemSize = {
             x: itemDim.right - itemDim.left,
@@ -99,9 +93,29 @@ $("#delete").click(function () {
             isShowEnd: false,
         }
     });
+    //#endregion
 
-    
-    currentTile.text('');
     decrementTile();
+    currentTile.text('');
+    if (jQuery.inArray(currentTile.attr('id'), beginningTiles) != -1) {
+        // found in beginning tiles
+        currentTile.append('<placeholder class="tile-placeholder">A</placeholder>')
+    } 
     burst.play();
 });
+
+// Helper Functions
+
+function incrimentTile() {
+    var tile = parseInt(currentTile.attr('id').substring(4));
+    tile++;
+    currentTile = $('#tile' + tile);
+}
+
+function decrementTile() {
+    if (jQuery.inArray(currentTile.attr('id'), beginningTiles) != -1)
+        return;
+    var tile = parseInt(currentTile.attr('id').substring(4));
+    tile--;
+    currentTile = $('#tile' + tile);
+}
