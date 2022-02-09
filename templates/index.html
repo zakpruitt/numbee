@@ -42,14 +42,150 @@
 
         <!-- Modals -->
         <div class="modal fade" id="howToPlayModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header text-center">
                         <h5 class="modal-title">How To Play</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        ...
+                        Guess the daily <b>bee</b> that adds up to the daily <b>num</b> in 6 tries or less. <br><br>
+                        Each guess must be a valid 6 letter word. Hit the checkmark button to submit your guess.
+                        <br><br>
+                        After a guess, the color of the tiles will change to reflect the correctness of your
+                        guess.<br><br>
+                        The goal of the game is to build a word, or a bee, that adds up to the daily number, or
+                        <b>num</b>.
+
+                        <hr>
+
+                        <b><u>Example 1</u></b><br><br>
+                        <div class="tile-container">
+                            <div class="row gx-0">
+                                <div class="col-2">
+                                    <div class="tile correct">
+                                        A
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="tile correct">
+                                        N
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="tile correct">
+                                        G
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="tile correct">
+                                        L
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="tile correct">
+                                        E
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="tile lower">
+                                        S
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-4">
+                                In this example, ANGLES was guessed. The tiles colored green are correct. However,
+                                the red tile indicates that the guess was too high.
+                                <br><br>
+                                Since 'S' is 16, I know that the last letter
+                                cannot be
+                                'T', 'V', 'W', 'X', or 'Z'.
+                            </p>
+                            <hr>
+                        </div>
+
+                        <b><u>Example 1 Cont.</u></b><br><br>
+                        <div class="tile-container">
+                            <div class="row gx-0">
+                                <div class="col-2">
+                                    <div class="tile correct">
+                                        A
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="tile correct">
+                                        N
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="tile correct">
+                                        G
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="tile correct">
+                                        L
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="tile correct">
+                                        E
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="tile correct">
+                                        D
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-4">
+                                Now that the player knows the last letter cannot be 'S', the player can form other words, such as ANGLED and ANGLER.
+                                <br><br>
+                                Since today's <b>num</b> is 34, I know that ANGLER is not the answer because its sum is 45.
+                                <br><br>
+                                ANGLED adds up to today's <b>num</b>, so it's a safe and sure bet to be today's <b>bee</b>!
+                            </p>
+                            <hr>
+                        </div>
+                        
+                        <b><u>Example 2</u></b><br><br>
+                        <div class="tile-container">
+                            <div class="row gx-0">
+                                <div class="col-2">
+                                    <div class="tile higher">
+                                        P
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="tile correct">
+                                        A
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="tile higher">
+                                        P
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="tile correct">
+                                        A
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="tile correct">
+                                        Y
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="tile higher">
+                                        A
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-4">
+                                The blue tiles indicate the letter is higher. This follows the same logic as above.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -119,7 +255,7 @@
         <h2 class="mx-auto number mt-2">43</h2>
 
         <!-- Game Tiles -->
-        <div style="max-width: 80%; margin-left: 10%;">
+        <div class="tile-container">
             <div class="row gx-0 text-center mt-4">
                 <div class="col-2">
                     <div id="tile1" class="tile">

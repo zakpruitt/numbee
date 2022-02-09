@@ -35,6 +35,11 @@ body {
     color: #6c757d;
 }
 
+.tile-container {
+  max-width: 80%; 
+  margin-left: 10%;
+}
+
 .tile {
   overflow-x: hidden;
   border-radius: 5px;
@@ -52,6 +57,19 @@ body {
   background-color: #000000d3;
   text-transform: uppercase;
   user-select: none;
+}
+
+
+.correct {
+  background-color: #599959e1;
+}
+
+.higher {
+  background-color: #266d9c;
+}
+
+.lower {
+  background-color: #a83030;
 }
 
 .tile-placeholder {
