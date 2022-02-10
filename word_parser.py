@@ -39,7 +39,7 @@ def calculate_word_value(word):
 
 
 def load_words(word_to_remove = "none"):
-    with open('words.json') as words_file, open("six_letter_words.json", "r+") as six_letter_words_file:
+    with open('./words/words.json') as words_file, open("./words/six_letter_words.json", "r+") as six_letter_words_file:
         word_json = json.load(words_file)
         six_letter_words_json = {}
         for key, value in word_json.items():
@@ -56,7 +56,7 @@ def load_words(word_to_remove = "none"):
 
 
 def rank_words_by_value():
-    with open("six_letter_words.json", "r") as six_letter_words_file:
+    with open("./words/six_letter_words.json", "r") as six_letter_words_file:
         six_letter_words_json = json.load(six_letter_words_file)
         occurences = {}
         for key, value in six_letter_words_json.items():
@@ -72,13 +72,13 @@ def rank_words_by_value():
 
 
 def delete_word(word):
-    with open("six_letter_words.json", "r+") as six_letter_words_file:
+    with open("./words/six_letter_words.json", "r+") as six_letter_words_file:
         six_letter_words_file.truncate(0)
         load_words(word)
 
 
 def select_word():
-    with open("six_letter_words.json", "r") as six_letter_words_file:
+    with open("./words/six_letter_words.json", "r") as six_letter_words_file:
         six_letter_words_json = json.load(six_letter_words_file)
         chosen_word = random.choice(list(six_letter_words_json.keys()))
         chosen_word_json = six_letter_words_json[chosen_word]
