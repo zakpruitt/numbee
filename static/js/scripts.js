@@ -3,8 +3,21 @@ const beginningTiles = ['tile1', 'tile7', 'tile13', 'tile19', 'tile25', 'tile31'
 const endingTiles = ['tile6', 'tile12', 'tile18', 'tile24', 'tile30', 'tile36'];
 
 var currentTile = $('#tile1');
+var word = "";
+var words = "";
+
+$(document).ready(function() {
+    console.log( "ready!" );
+    fetch('http://127.0.0.1:5000/word')
+        .then(response => response.json())
+        .then(data => word = JSON.stringify(data));
+    fetch('http://127.0.0.1:5000/word')
+        .then(response => response.json())
+        .then(data => words = JSON.stringify(data));
+});
 
 $(".key").click(function () {
+    console.log(words);
     if (jQuery.inArray(currentTile.attr('id'), endingTiles) != -1 && currentTile.text() != "") {
         return;
     } 
@@ -57,6 +70,8 @@ $("#submit").click(function () {
     if (jQuery.inArray(currentTile.attr('id'), endingTiles) != -1 && currentTile.text() != "") {
         console.log("submittable");
         // check submission
+
+        // go to next line
         switch(currentTile.attr('id')) {
             case 'tile6':
                 currentTile = $('#tile7');

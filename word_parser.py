@@ -86,5 +86,14 @@ def select_word():
         return chosen_word_json
 
 
+def get_all_words():
+    with open("./words/six_letter_words.json", "r") as six_letter_words_file:
+        word_json = json.load(six_letter_words_file)
+        words = [word for word in word_json.keys()]
+        word_response = json.dumps(words)
+        return word_response
+
+
 if __name__ == "__main__":
     load_words()
+    print("Words loaded!")

@@ -1,9 +1,10 @@
 import time
 import atexit
+import json
 
 from flask import Flask, render_template
 from apscheduler.schedulers.background import BackgroundScheduler
-from word_parser import select_word
+from word_parser import select_word, get_all_words
 
 
 app = Flask(__name__)
@@ -14,8 +15,6 @@ def select_new_word():
     if (time.strftime("%I%p") == "12AM"):
         global word
         word = select_word()
-    else:
-        print("Not time to select a new word")
 
 
 scheduler = BackgroundScheduler()
@@ -35,6 +34,11 @@ def get_word():
     if word == None:
         word = select_word()
     return word
+
+
+@app.route("/words")
+def get_words():
+    return get_all_words()
 
 #### main function ####
 if __name__ == '__main__':
