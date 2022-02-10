@@ -3,24 +3,24 @@ const beginningTiles = ['tile1', 'tile7', 'tile13', 'tile19', 'tile25', 'tile31'
 const endingTiles = ['tile6', 'tile12', 'tile18', 'tile24', 'tile30', 'tile36'];
 
 var currentTile = $('#tile1');
+var currentLine = 1;
 var word = "";
 var words = "";
 
-$(document).ready(function() {
-    console.log( "ready!" );
+$(document).ready(function () {
+    console.log("ready!");
     fetch('http://127.0.0.1:5000/word')
         .then(response => response.json())
-        .then(data => word = JSON.stringify(data));
-    fetch('http://127.0.0.1:5000/word')
+        .then(data => word = data);
+    fetch('http://127.0.0.1:5000/words')
         .then(response => response.json())
-        .then(data => words = JSON.stringify(data));
+        .then(data => words = data);
 });
 
 $(".key").click(function () {
-    console.log(words);
     if (jQuery.inArray(currentTile.attr('id'), endingTiles) != -1 && currentTile.text() != "") {
         return;
-    } 
+    }
     var key = this.innerHTML;
     currentTile.text(key);
     incrimentTile();
@@ -68,31 +68,43 @@ $("#submit").click(function () {
     //#endregion
 
     if (jQuery.inArray(currentTile.attr('id'), endingTiles) != -1 && currentTile.text() != "") {
-        console.log("submittable");
-        // check submission
-
-        // go to next line
-        switch(currentTile.attr('id')) {
-            case 'tile6':
-                currentTile = $('#tile7');
-                break;
-            case 'tile12':
-                currentTile = $('#tile13');
-                break;
-            case 'tile18':
-                currentTile = $('#tile19');
-                break;
-            case 'tile24':
-                currentTile = $('#tile25');
-                break;
-            case 'tile30':
-                currentTile = $('#tile31');
-                break;
-            case 'tile36':
-                // end game
-                break;
+        guess = buildWordFromTiles();
+        if (words.some(item => item === guess)) {
+            // start flipping
+            alert('valid')
+            // go to next line
+            switch (currentTile.attr('id')) {
+                case 'tile6':
+                    currentTile = $('#tile7');
+                    currentLine += 1;
+                    break;
+                case 'tile12':
+                    currentTile = $('#tile13');
+                    currentLine += 1;
+                    break;
+                case 'tile18':
+                    currentTile = $('#tile19');
+                    currentLine += 1;
+                    break;
+                case 'tile24':
+                    currentTile = $('#tile25');
+                    currentLine += 1;
+                    break;
+                case 'tile30':
+                    currentTile = $('#tile31');
+                    currentLine += 1;
+                    break;
+                case 'tile36':
+                    // end game
+                    break;
+            }
+        } else {
+            // invalid word
+            alert("invalid word");
         }
-    } 
+    } else {
+        alert("not complete");
+    }
     burst.play();
 });
 
@@ -141,7 +153,7 @@ $("#delete").click(function () {
     if (jQuery.inArray(currentTile.attr('id'), beginningTiles) != -1) {
         // found in beginning tiles
         currentTile.append('<placeholder class="tile-placeholder">A</placeholder>')
-    } 
+    }
     decrementTile();
     burst.play();
 });
@@ -165,4 +177,35 @@ function decrementTile() {
     tile--;
     currentTile = $('#tile' + tile);
     console.log("current tile: " + currentTile.attr("id"));
+}
+
+function buildWordFromTiles() {
+    var word = "";
+    switch (currentLine) {
+        case 1:
+            for (var i = 1; i < 7; i++)
+                word += $('#tile' + i).text();
+            break;
+        case 2:
+            for (var i = 7; i < 13; i++)
+                word += $('#tile' + i).text();
+            break;
+        case 3:
+            for (var i = 13; i < 19; i++)
+                word += $('#tile' + i).text();
+            break;
+        case 4:
+            for (var i = 19; i < 25; i++)
+                word += $('#tile' + i).text();
+            break;
+        case 5:
+            for (var i = 25; i < 31; i++)
+                word += $('#tile' + i).text();
+            break;
+        case 6:
+            for (var i = 31; i < 37; i++)
+                word += $('#tile' + i).text();
+            break;
+    }
+    return word.toLocaleLowerCase();
 }

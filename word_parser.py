@@ -82,7 +82,6 @@ def select_word():
         six_letter_words_json = json.load(six_letter_words_file)
         chosen_word = random.choice(list(six_letter_words_json.keys()))
         chosen_word_json = six_letter_words_json[chosen_word]
-        delete_word(chosen_word)
         return chosen_word_json
 
 
