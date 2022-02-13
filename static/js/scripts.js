@@ -1,6 +1,6 @@
 
-const beginningTiles = ['tile1', 'tile7', 'tile13', 'tile19', 'tile25', 'tile31'];
-const endingTiles = ['tile6', 'tile12', 'tile18', 'tile24', 'tile30', 'tile36'];
+const beginningTiles = ['tile1', 'tile7', 'tile13', 'tile19', 'tile25'];
+const endingTiles = ['tile6', 'tile12', 'tile18', 'tile24', 'tile30'];
 
 var currentTile = $('#tile1');
 var currentLine = 1;
@@ -11,7 +11,8 @@ var letterValues;
 
 $(document).ready(function () {
     if(!window.mobileCheck()) {
-        window.location.replace("/not-supported");
+        alert("numbee is best experienced on a mobile device. When using the desktop variant, the formatting may be a bit off.");
+        // window.location.replace("/not-supported");
     }
 
     fetch('http://127.0.0.1:5000/word')
@@ -81,10 +82,16 @@ $("#submit").click(function () {
             // start flipping
             for (var i = 0; i < guess.length; i++) {
                 guessLetter = guess[i];
-                correctLetter = word['word'[i]];
-                if (guessLetter == correctLetter) {
+                correctLetter = word['word'].charAt(i);
+                console.log("guess letter: " + guessLetter);
+                console.log("correct letter: " + correctLetter);
+                if (guessLetter === correctLetter) {
                     // flip green
                     console.log("flipping green");
+                }
+                else if (letterValues[guessLetter] === letterValues[correctLetter]) {
+                    // flip yellow
+                    console.log("flipping yellow");
                 }
                 else if (letterValues[guessLetter] > letterValues[correctLetter]) {
                     // flip red
@@ -94,7 +101,7 @@ $("#submit").click(function () {
                     // flip blue
                     console.log("flipping blue");
                 }
-                console.log(letterValues[letter]);
+                console.log(letterValues[guessLetter]);
             }
 
             // go to next line
@@ -116,11 +123,6 @@ $("#submit").click(function () {
                     currentLine += 1;
                     break;
                 case 'tile30':
-                    currentTile = $('#tile31');
-                    currentLine += 1;
-                    break;
-                case 'tile36':
-                    // end game
                     break;
             }
         } else {
@@ -173,12 +175,11 @@ $("#delete").click(function () {
     //#endregion
 
     currentTile.text('');
-
-    decrementTile();
     if (jQuery.inArray(currentTile.attr('id'), beginningTiles) != -1) {
         // found in beginning tiles
         currentTile.append('<placeholder class="tile-placeholder">A</placeholder>')
     }
+    decrementTile();
     burst.play();
 });
 

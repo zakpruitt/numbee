@@ -13,7 +13,7 @@ body {
 
 #game {
   width: 100%;
-  max-width: 500px;
+  max-width: 520px;
   margin: 0 auto;
   display: flex;
   flex-grow: 1.5;
@@ -155,7 +155,7 @@ body {
 
 #keyboard {
   flex-grow: 4;
-  max-width: 500px;
+  max-width: 520px;
   margin: auto;
   background-color: white;
 }
@@ -196,7 +196,7 @@ body {
 
 @media (min-width: 1025px) {
   .tile-container {
-    margin-top: 5%;
+    margin-top: 15%;
   }
 
   .keyboard-container {
