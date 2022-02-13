@@ -1,4 +1,3 @@
-
 const beginningTiles = ['tile1', 'tile7', 'tile13', 'tile19', 'tile25'];
 const endingTiles = ['tile6', 'tile12', 'tile18', 'tile24', 'tile30'];
 
@@ -10,18 +9,21 @@ var words;
 var letterValues;
 
 $(document).ready(function () {
-    if(!window.mobileCheck()) {
-        alert("numbee is best experienced on a mobile device. When using the desktop variant, the formatting may be a bit off.");
-        // window.location.replace("/not-supported");
+    // check if on mobile or not
+    url = window.location.href;
+    if (!window.mobileCheck()) {
+        window.location.replace("/not-supported");
     }
 
-    fetch('http://127.0.0.1:5000/word')
+    // get variables
+    fetch(url + '/word')
         .then(response => response.json())
         .then(data => word = data);
-    fetch('http://127.0.0.1:5000/words')
+    fetch(url + '/word')
+    fetch('/words')
         .then(response => response.json())
         .then(data => words = data);
-    fetch('http://127.0.0.1:5000/values')
+    fetch(url + '/values')
         .then(response => response.json())
         .then(data => letterValues = data);
 });
@@ -127,7 +129,9 @@ $("#submit").click(function () {
             }
         } else {
             // invalid word
-            alert("invalid word");
+            // Usage!
+            const row = $("#line" + currentLine);
+            animateCSS('#line1', 'shakeX');
         }
     }
     burst.play();
@@ -183,6 +187,27 @@ $("#delete").click(function () {
     burst.play();
 });
 
+// Animations
+
+const animateCSS = (element, animation, prefix = 'animate__') =>
+  // We create a Promise and return it
+  new Promise((resolve, reject) => {
+    const animationName = `${prefix}${animation}`;
+    const node = document.querySelector(element);
+
+    node.classList.add(`${prefix}animated`, animationName);
+    node.style.setProperty('--animate-duration', '.9s');
+
+    // When the animation ends, we clean the classes and resolve the Promise
+    function handleAnimationEnd(event) {
+      event.stopPropagation();
+      node.classList.remove(`${prefix}animated`, animationName);
+      resolve('Animation ended');
+    }
+
+    node.addEventListener('animationend', handleAnimationEnd, {once: true});
+  });
+
 // Helper Functions
 
 function incrimentTile() {
@@ -225,10 +250,6 @@ function buildGuessFromTiles() {
             break;
         case 5:
             for (var i = 25; i < 31; i++)
-                guess += $('#tile' + i).text();
-            break;
-        case 6:
-            for (var i = 31; i < 37; i++)
                 guess += $('#tile' + i).text();
             break;
     }

@@ -2,6 +2,7 @@
 
 html {
   height: 100%;
+  /*overflow-x: hidden;*/
 }
 
 body {
@@ -43,6 +44,7 @@ body {
 .heading_bar {
   margin-top: 1px;
 }
+
 #title_div {
   padding: 0px;
 }
@@ -58,6 +60,10 @@ body {
 .tile-container {
   max-width: 80%;
   margin-left: 10%;
+}
+
+.tile-row {
+  flex-wrap: nowrap;
 }
 
 .tile {
@@ -157,7 +163,23 @@ body {
   flex-grow: 4;
   max-width: 520px;
   margin: auto;
+  margin-top: 3%;
   background-color: white;
+}
+
+.result {
+  float: right;
+  padding-left: 100px;
+  margin-top: -45px;
+  pointer-events: none;
+}
+
+.result-txt {
+  background-color: #000000d3;
+  text-decoration: none;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 @media (max-width: 380px) {
@@ -191,23 +213,5 @@ body {
   .keyboard-container {
     position: absolute;
     float: bottom;
-  }
-}
-
-@media (min-width: 1025px) {
-  .tile-container {
-    margin-top: 15%;
-  }
-
-  .keyboard-container {
-    position: absolute;
-    float: bottom;
-    margin-top: 5%;
-  }
-
-  .keyboard-container {
-    position: absolute;
-    float: bottom;
-    margin-top: 5%;
   }
 }
