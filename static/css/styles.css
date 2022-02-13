@@ -1,24 +1,41 @@
 @import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
 
+html {
+  height: 100%;
+}
+
 body {
   background-color: #ffffff;
   font-family: "Righteous";
+  height: 100%;
+  touch-action: manipulation;
 }
 
 #game {
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
-  height: 100%;
   display: flex;
+  flex-grow: 1.5;
   flex-direction: column;
 }
 
+.header {
+  position: sticky !important;
+  top: 0;
+  opacity: 1;
+  background-color: white;
+  z-index: 999;
+}
+
 .title {
-  /* margin: 0 auto; */
   font-size: 2em;
+  width: 100%;
   margin-top: -1px;
   margin-right: 10%;
+  padding-left: 5px;
+  text-align: center;
+  transform: translateX(-50%);
   /* color: #fff897;
     text-shadow: black 0px 0px 2px; */
 }
@@ -26,17 +43,20 @@ body {
 .heading_bar {
   margin-top: 1px;
 }
+#title_div {
+  padding: 0px;
+}
 
 .heading_buttons {
   margin-top: 3%;
 }
 
 .number {
-    color: #6c757d;
+  color: #6c757d;
 }
 
 .tile-container {
-  max-width: 80%; 
+  max-width: 80%;
   margin-left: 10%;
 }
 
@@ -57,8 +77,8 @@ body {
   background-color: #000000d3;
   text-transform: uppercase;
   user-select: none;
+  max-width: 300px;
 }
-
 
 .correct {
   background-color: #599959e1;
@@ -79,7 +99,7 @@ body {
 .first-keyboard {
   max-width: 95%;
   margin-left: 3%;
-  margin-top: 17%;
+  margin-top: 2%;
 }
 
 .second-keyboard {
@@ -90,6 +110,7 @@ body {
 .third-keyboard {
   max-width: 95%;
   margin-left: 4%;
+  margin-bottom: 2%;
 }
 
 .key {
@@ -114,4 +135,79 @@ body {
   align-items: center;
   vertical-align: middle;
   text-transform: lowercase;
+}
+
+.keyboard-container {
+  overflow: hidden;
+  background-color: white;
+  position: sticky;
+  position: -webkit-sticky;
+  margin-top: 30px;
+  height: 25%;
+  bottom: 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 2%;
+  padding-top: 0.5%;
+  padding-bottom: 1%;
+}
+
+#keyboard {
+  flex-grow: 4;
+  max-width: 500px;
+  margin: auto;
+  background-color: white;
+}
+
+@media (max-width: 380px) {
+  .heading_buttons {
+    padding: 4px;
+  }
+  .key {
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+  }
+  .keyboard-container {
+    height: 25%;
+  }
+}
+
+@media (max-height: 700px) {
+  .keyboard-container {
+    height: 150px;
+    padding-top: 0;
+  }
+  #keyboard {
+    height: 150px;
+    margin-top: 0;
+  }
+  .keyboard {
+    height: 25px;
+  }
+}
+
+@media (min-height: 1000px) {
+  .keyboard-container {
+    position: absolute;
+    float: bottom;
+  }
+}
+
+@media (min-width: 1025px) {
+  .tile-container {
+    margin-top: 5%;
+  }
+
+  .keyboard-container {
+    position: absolute;
+    float: bottom;
+    margin-top: 5%;
+  }
+
+  .keyboard-container {
+    position: absolute;
+    float: bottom;
+    margin-top: 5%;
+  }
 }
