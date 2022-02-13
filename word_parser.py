@@ -1,5 +1,8 @@
 import json
 import random
+import os
+
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 letter_value = {
     'a': 1,
@@ -38,8 +41,8 @@ def calculate_word_value(word):
     return value
 
 
-def load_words(word_to_remove = "none"):
-    with open('./words/words.json') as words_file, open("./words/six_letter_words.json", "r+") as six_letter_words_file:
+def load_words(word_to_remove="none"):
+    with open(THIS_FOLDER + '/words.json') as words_file, open(THIS_FOLDER + "/six_letter_words.json", "r+") as six_letter_words_file:
         word_json = json.load(words_file)
         six_letter_words_json = {}
         for key, value in word_json.items():
@@ -56,7 +59,7 @@ def load_words(word_to_remove = "none"):
 
 
 def rank_words_by_value():
-    with open("./words/six_letter_words.json", "r") as six_letter_words_file:
+    with open(THIS_FOLDER + "/six_letter_words.json", "r") as six_letter_words_file:
         six_letter_words_json = json.load(six_letter_words_file)
         occurences = {}
         for key, value in six_letter_words_json.items():
@@ -72,21 +75,29 @@ def rank_words_by_value():
 
 
 def delete_word(word):
-    with open("./words/six_letter_words.json", "r+") as six_letter_words_file:
+    with open(THIS_FOLDER + "/six_letter_words.json", "r+") as six_letter_words_file:
         six_letter_words_file.truncate(0)
         load_words(word)
 
 
 def select_word():
-    with open("./words/six_letter_words.json", "r") as six_letter_words_file:
+    with open(THIS_FOLDER + "/six_letter_words.json", "r+") as six_letter_words_file:
         six_letter_words_json = json.load(six_letter_words_file)
         chosen_word = random.choice(list(six_letter_words_json.keys()))
         chosen_word_json = six_letter_words_json[chosen_word]
-        return chosen_word_json
+        json.dump(chosen_word_json, open(
+            THIS_FOLDER + "/daily_word.json", "w"), indent=4)
+
+
+def get_current_word():
+    with open(THIS_FOLDER + "/daily_word.json", "r") as daily_word_file:
+        daily_word_json = json.load(daily_word_file)
+        word = daily_word_json
+        return word
 
 
 def get_all_words():
-    with open("./words/six_letter_words.json", "r") as six_letter_words_file:
+    with open(THIS_FOLDER + "/six_letter_words.json", "r") as six_letter_words_file:
         word_json = json.load(six_letter_words_file)
         words = [word for word in word_json.keys()]
         word_response = json.dumps(words)
