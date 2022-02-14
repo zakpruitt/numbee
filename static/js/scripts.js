@@ -164,11 +164,12 @@ $("#delete").click(function () {
     });
     //#endregion
 
-    currentTile.text('');
     if (jQuery.inArray(currentTile.attr('id'), beginningTiles) != -1) {
-        // found in beginning tiles
-        currentTile.append('<placeholder class="tile-placeholder">A</placeholder>')
+        currentTile.text('');    
+        currentTile.append('<placeholder class="tile-placeholder">A</placeholder>');
+        return;
     }
+    currentTile.text('');    
     decrementTile();
     burst.play();
 });
@@ -185,9 +186,8 @@ function incrimentTile() {
 }
 
 function decrementTile() {
-    if (jQuery.inArray(currentTile.attr('id'), beginningTiles) != -1) {
+    if (jQuery.inArray(currentTile.attr('id'), beginningTiles) != -1)
         return;
-    }
     var tile = parseInt(currentTile.attr('id').substring(4));
     tile--;
     currentTile = $('#tile' + tile);
@@ -216,6 +216,21 @@ function incrimentLine() {
             break;
     }
 }
+
+// function calculateCurrentLine() {
+//     var tiles = getActiveTiles();
+//     var count = 0;
+//     tiles.forEach(function (tile) {
+//         if (tile.text() != "") {
+//             count++;
+//     }
+
+//     .forEach(myNumber => {
+//         let formattedNumber = myNumber.toLocaleString('en-US', {
+//           minimumIntegerDigits: 2,
+//           useGrouping: false
+//     })
+// }
 
 function buildGuessFromTiles() {
     var guess = "";
