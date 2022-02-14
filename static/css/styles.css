@@ -95,6 +95,10 @@ body {
   transform: rotateX(90deg);
 }
 
+.tile.dance {
+  animation: dance 500ms ease-in-out;
+}
+
 .correct {
   background-color: #599959e1;
 }
@@ -229,6 +233,32 @@ body {
   }
 }
 
+@keyframes dance {
+  20% {
+    transform: translateY(-50%);
+  }
+
+  40% {
+    transform: translateY(5%);
+  }
+
+  60% {
+    transform: translateY(-25%);
+  }
+
+  80% {
+    transform: translateY(2.5%);
+  }
+
+  90% {
+    transform: translateY(-5%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
 .alert-container {
   position: fixed;
   top: 10vh;
@@ -243,11 +273,11 @@ body {
 .alert {
   pointer-events: none;
   background-color: hsl(204, 7%, 85%);
-  padding: .75em;
-  border-radius: .25em;
+  padding: 0.75em;
+  border-radius: 0.25em;
   opacity: 1;
   transition: opacity 500ms ease-in-out;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 
 .alert:last-child {

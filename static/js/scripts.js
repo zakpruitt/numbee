@@ -1,6 +1,7 @@
 const beginningTiles = ['tile1', 'tile7', 'tile13', 'tile19', 'tile25'];
 const endingTiles = ['tile6', 'tile12', 'tile18', 'tile24', 'tile30'];
 const FLIP_ANIMATION_DURATION = 500;
+const DANCE_ANIMATION_DURATION = 500
 
 var currentTile = $('#tile1');
 var currentLine = 1;
@@ -222,8 +223,8 @@ function flipTiles(tile, index, array, guess) {
 
     if (index === array.length - 1) {
         iteratingTile.addEventListener('transitionend', () => {
-            checkWin(guess);
-        });
+            checkWin(guess, array);
+        }, { once: true });
     }
 }
 
@@ -254,15 +255,16 @@ function getActiveTiles() {
     return activeTiles;
 }
 
-function checkWin(guess) {
+function checkWin(guess, tiles) {
     if (guess === word['word']) {
         showAlert("You Win!");
+        danceTiles(tiles);
         stopInteraction();
         // $('#win-modal').modal('show');
         // $('#win-modal').on('hidden.bs.modal', function () {
         //     location.reload();
         // });
-    } 
+    }
 }
 
 function showAlert(message, duration = 1000) {
@@ -272,14 +274,31 @@ function showAlert(message, duration = 1000) {
     alert.classList.add("alert")
     alertContainer.prepend(alert)
     if (duration == null) return
-  
+
     setTimeout(() => {
-      alert.classList.add("hide")
-      alert.addEventListener("transitionend", () => {
-        alert.remove()
-      })
+        alert.classList.add("hide")
+        alert.addEventListener("transitionend", () => {
+            alert.remove()
+        })
     }, duration)
-  }
+}
+
+function danceTiles(tiles) {
+    tiles.forEach((tile, index) => {
+        setTimeout(() => {
+            const id = tile.attr('id');
+            const iteratingTile = document.querySelector('#' + id);
+            iteratingTile.classList.add("dance")
+            iteratingTile.addEventListener(
+                "animationend",
+                () => {
+                    iteratingTile.classList.remove("dance")
+                },
+                { once: true }
+            )
+        }, (index * DANCE_ANIMATION_DURATION) / 5)
+    })
+}
 
 function startInteraction() {
     const keyboard = document.querySelector('#keyboard');
