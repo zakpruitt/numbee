@@ -12,6 +12,8 @@ var letterValues;
 
 
 $(document).ready(function () {
+    showAlert("It is a known issue that you may need to tap delete twice to clear the text field.", 2500);
+
     // check if on mobile or not
     url = window.location.href;
     if (!window.mobileCheck()) {
@@ -36,6 +38,7 @@ $(".key").click(function () {
     }
     var key = this.innerHTML;
     currentTile.text(key);
+    calculateCurrentLine(key, "add");
     incrimentTile();
 });
 
@@ -56,7 +59,7 @@ $('.share').on('click', () => {
 
 $('#generateWordBtn').click(async function () {
     let suggestion = await fetchSuggestion();
-    $('#suggestion').text(suggestion["word"]);  
+    $('#suggestion').text(suggestion["word"]);
 });
 
 $("#submit").click(function () {
@@ -165,11 +168,13 @@ $("#delete").click(function () {
     //#endregion
 
     if (jQuery.inArray(currentTile.attr('id'), beginningTiles) != -1) {
-        currentTile.text('');    
-        currentTile.append('<placeholder class="tile-placeholder">A</placeholder>');
+        calculateCurrentLine(currentTile.text(), "subtract");
+        currentTile.text('');
+        currentTile.append('<placeholder class="tile-placeholder">!</placeholder>');
         return;
     }
-    currentTile.text('');    
+    calculateCurrentLine(currentTile.text(), "subtract");
+    currentTile.text('');
     decrementTile();
     burst.play();
 });
@@ -217,20 +222,25 @@ function incrimentLine() {
     }
 }
 
-// function calculateCurrentLine() {
-//     var tiles = getActiveTiles();
-//     var count = 0;
-//     tiles.forEach(function (tile) {
-//         if (tile.text() != "") {
-//             count++;
-//     }
+function calculateCurrentLine(letter, operation) {
+    if (letter === "" || letter === "!")
+        return;
+    console.log(letter);
+    const counter = $('#result-' + currentLine);
+    letter = letter.toLocaleLowerCase();
+    let count = parseInt(counter.text());
 
-//     .forEach(myNumber => {
-//         let formattedNumber = myNumber.toLocaleString('en-US', {
-//           minimumIntegerDigits: 2,
-//           useGrouping: false
-//     })
-// }
+    if (operation == "add")
+        count += letterValues[letter];
+    else if (operation == "subtract")
+        count -= letterValues[letter];
+ 
+    let formattedNumber = count.toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+    });
+    counter.text(formattedNumber);
+}
 
 function buildGuessFromTiles() {
     var guess = "";
@@ -263,7 +273,8 @@ function flipTiles(tile, index, array, guess) {
 
     if (index === array.length - 1 && currentLine === 5) {
         iteratingTile.addEventListener('transitionend', () => {
-            endGame(guess, array);
+            checkWin(guess, array);
+            loseGame();
         }, { once: true });
     }
     else if (index === array.length - 1) {
@@ -308,17 +319,57 @@ function checkWin(guess, tiles) {
         squares = generateSquares();
         $("#squares").html(squares);
         $('#winModal').modal('show');
-        // $('#winModal').on('hidden.bs.modal', function () {
-        //     disableInteraction();
-        // });
+        endGame();
     }
 }
 
-function endGame(guess, tiles) {
-    stopInteraction();
+function loseGame() {
     squares = generateSquares();
     $("#squares-l").html(squares);
     $('#loseModal').modal('show');
+    endGame();
+}
+
+// WIP
+function endGame() {
+    stopInteraction();
+    var pog = {'foo':'1','moo':'2'}
+    window.localStorage.setItem("test", JSON.stringify(pog));
+    var meta1 = JSON.parse(window.localStorage.getItem("test"));
+    console.log(meta1['foo']);
+    
+    window.localStorage.setItem("row1", JSON.stringify(buildWordByRow(1)));
+    window.localStorage.setItem("row2", JSON.stringify(buildWordByRow(2)));
+    window.localStorage.setItem("row3", JSON.stringify(buildWordByRow(3)));
+    window.localStorage.setItem("row4", JSON.stringify(buildWordByRow(4)));
+    window.localStorage.setItem("row5", JSON.stringify(buildWordByRow(5)));
+}
+
+function buildWordByRow(row_number) {
+    row = {};
+    switch (row_number) {
+        case 1:
+            for (var i = 1; i < 7; i++)
+                row[$(`#tile${i}`).text()] = $(`#tile${i}`).css('background-color');
+            break;
+        case 2:
+            for (var i = 7; i < 13; i++)
+                row[$(`#tile${i}`).text()] = $(`#tile${i}`).css('background-color');
+            break;
+        case 3:
+            for (var i = 13; i < 19; i++)
+                row[$(`#tile${i}`).text()] = $(`#tile${i}`).css('background-color');
+            break;
+        case 4:
+            for (var i = 19; i < 25; i++)
+                row[$(`#tile${i}`).text()] = $(`#tile${i}`).css('background-color');
+            break;
+        case 5:
+            for (var i = 25; i < 31; i++)
+                row[$(`#tile${i}`).text()] = $(`#tile${i}`).css('background-color');
+            break;
+    }
+    return row;
 }
 
 function generateSquares() {

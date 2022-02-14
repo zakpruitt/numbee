@@ -115,6 +115,22 @@ body {
   background-color: #ffbc2c;
 }
 
+.text-correct {
+  color: #599959;
+}
+
+.text-higher {
+  color: #266d9c;
+}
+
+.text-lower {
+  color: #a83030;
+}
+
+.text-equal {
+  color: #ffbc2c;
+}
+
 .tile-placeholder {
   opacity: 0;
 }
