@@ -84,6 +84,11 @@ body {
   text-transform: uppercase;
   user-select: none;
   max-width: 300px;
+  transition: transform 250ms linear;
+}
+
+.tile.flip {
+  transform: rotateX(90deg);
 }
 
 .correct {
