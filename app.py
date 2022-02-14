@@ -1,7 +1,7 @@
 import json
 from datetime import date
 from flask import Flask, render_template
-from word_parser import letter_value, select_word, get_all_words, get_current_word
+from word_parser import letter_value, select_word, get_all_words, get_current_word, get_random_word
 
 app = Flask(__name__)
 
@@ -20,6 +20,11 @@ def not_supported():
 @app.route("/word")
 def get_word():
     return get_current_word()
+
+
+@app.route("/suggest")
+def get_suggestion():
+    return get_random_word()
 
 
 @app.route("/words")

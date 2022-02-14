@@ -16,7 +16,7 @@
 <body>
     <div id="all">
         <div class="alert-container" data-alert-container></div>
-        
+
         <!-- Heading and Tiles -->
         <div id="game" class="container-fluid">
             <!-- Heading -->
@@ -36,7 +36,8 @@
                         <h1 class="title animate__animated animate__rubberBand">numbee</h1>
                     </div>
                     <div class="col-4">
-                        <button data-bs-toggle="modal" data-bs-target="#winModal" class="btn heading_buttons float-end animate__animated animate__fadeInRight">
+                        <button data-bs-toggle="modal" data-bs-target=""
+                            class="btn heading_buttons float-end animate__animated animate__fadeInRight">
                             <i class="fas fa-award fa-lg"></i>
                         </button>
                         <button data-bs-toggle="modal" data-bs-target="#generateWordModal"
@@ -46,9 +47,9 @@
                     </div>
                 </div>
             </div>
-    
+
             <hr class="heading_bar">
-    
+
             <!-- Tile Section-->
             <h2 class="mx-auto number">{{number}}</h2>
             <div class="tile-container">
@@ -178,7 +179,7 @@
                     <a class="result-txt">10</a>
                 </div>
             </div>
-    
+
             <!-- Modals -->
             <div class="modal fade" id="howToPlayModal" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -195,9 +196,9 @@
                             guess.<br><br>
                             The goal of the game is to build a word, or a bee, that adds up to the daily number, or
                             <b>num</b>.
-    
+
                             <hr>
-    
+
                             <b><u>Example 1</u></b><br><br>
                             <div class="tile-container">
                                 <div class="row gx-0">
@@ -242,7 +243,7 @@
                                 </p>
                                 <hr>
                             </div>
-    
+
                             <b><u>Example 1 Cont.</u></b><br><br>
                             <div class="tile-container">
                                 <div class="row gx-0">
@@ -278,17 +279,19 @@
                                     </div>
                                 </div>
                                 <p class="mt-4">
-                                    Due to the last guess' reveal, the last letter cannot be 'S'. As such, more guesses can
+                                    Due to the last guess' reveal, the last letter cannot be 'S'. As such, more guesses
+                                    can
                                     be formed, such as ANGLED and ANGLER.
                                     <br><br>
-                                    Since today's example <b>num</b> is 34, ANGLER is not the answer because its sum is 45.
+                                    Since today's example <b>num</b> is 34, ANGLER is not the answer because its sum is
+                                    45.
                                     <br><br>
                                     ANGLED adds up to today's <b>num</b>, so it's a safe and sure bet to be today's
                                     <b>bee</b>!
                                 </p>
                                 <hr>
                             </div>
-    
+
                             <b><u>Example 2</u></b><br><br>
                             <div class="tile-container">
                                 <div class="row gx-0">
@@ -328,7 +331,7 @@
                                 </p>
                                 <hr>
                             </div>
-    
+
                             <b><u>Example 3</u></b><br><br>
                             <div class="tile-container">
                                 <div class="row gx-0">
@@ -364,7 +367,8 @@
                                     </div>
                                 </div>
                                 <p class="mt-4">
-                                    The yellow tiles indicate the letter is equal. This means there IS a vowel at this spot,
+                                    The yellow tiles indicate the letter is equal. This means there IS a vowel at this
+                                    spot,
                                     but the guess was not the correct vowel.
                                 </p>
                             </div>
@@ -372,7 +376,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="modal fade" id="numberScaleModal" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
@@ -431,7 +435,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <div class="modal fade" id="generateWordModal" tabindex="-1">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
@@ -441,12 +445,10 @@
                         </div>
                         <div class="modal-body">
                             <div class="text-center">
-                                <p id="#generatedWord">Click to generate!</p>
-                                <button class="btn btn-primary" id='answer-example-share-button'>Share!</button>
+                                <p id="suggestion">Click to generate!</p>
                             </div>
                             <hr>
-                            <button class="btn btn-primary float-end"
-                            onclick="generateWord()">Generate Word</button>
+                            <button class="btn btn-primary float-end" id="generateWordBtn">Generate Word</button>
                         </div>
                     </div>
                 </div>
@@ -466,59 +468,80 @@
                                 <squares id="squares"></squares>
                             </div>
                             <hr>
-                            <button class="btn btn-primary float-end" id='answer-example-share-button'>Share</button>
+                            <button class="btn btn-primary share float-end">Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="loseModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">End of Game {{date}}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="text-center">
+                                You lose! Try again tomorrow. 😅
+                                <br><br>
+                                <squares id="squares-l"></squares>
+                            </div>
+                            <hr>
+                            <button class="btn btn-primary share float-end">Share</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Keyboard -->
-        <div class="keyboard-container">
-            <div id="keyboard">
-                <div class="first-keyboard keyboard">
-                    <div class="row text-center">
-                        <button type="button" class="btn key btn-secondary">Q</button>
-                        <button type="button" class="btn key btn-secondary">W</button>
-                        <button type="button" class="btn key btn-secondary">E</button>
-                        <button type="button" class="btn key btn-secondary">R</button>
-                        <button type="button" class="btn key btn-secondary">T</button>
-                        <button type="button" class="btn key btn-secondary">Y</button>
-                        <button type="button" class="btn key btn-secondary">U</button>
-                        <button type="button" class="btn key btn-secondary">I</button>
-                        <button type="button" class="btn key btn-secondary">O</button>
-                        <button type="button" class="btn key btn-secondary">P</button>
-                    </div>
+    </div>
+
+    <!-- Keyboard -->
+    <div class="keyboard-container">
+        <div id="keyboard">
+            <div class="first-keyboard keyboard">
+                <div class="row text-center">
+                    <button type="button" class="btn key btn-secondary">Q</button>
+                    <button type="button" class="btn key btn-secondary">W</button>
+                    <button type="button" class="btn key btn-secondary">E</button>
+                    <button type="button" class="btn key btn-secondary">R</button>
+                    <button type="button" class="btn key btn-secondary">T</button>
+                    <button type="button" class="btn key btn-secondary">Y</button>
+                    <button type="button" class="btn key btn-secondary">U</button>
+                    <button type="button" class="btn key btn-secondary">I</button>
+                    <button type="button" class="btn key btn-secondary">O</button>
+                    <button type="button" class="btn key btn-secondary">P</button>
                 </div>
-                <div class="second-keyboard keyboard">
-                    <div class="row mt-3" style="margin-left: 20px;">
-                        <button type="button" class="btn key btn-secondary">A</button>
-                        <button type="button" class="btn key btn-secondary">S</button>
-                        <button type="button" class="btn key btn-secondary">D</button>
-                        <button type="button" class="btn key btn-secondary">F</button>
-                        <button type="button" class="btn key btn-secondary">G</button>
-                        <button type="button" class="btn key btn-secondary">H</button>
-                        <button type="button" class="btn key btn-secondary">J</button>
-                        <button type="button" class="btn key btn-secondary">K</button>
-                        <button type="button" class="btn key btn-secondary">L</button>
-                    </div>
+            </div>
+            <div class="second-keyboard keyboard">
+                <div class="row mt-3" style="margin-left: 20px;">
+                    <button type="button" class="btn key btn-secondary">A</button>
+                    <button type="button" class="btn key btn-secondary">S</button>
+                    <button type="button" class="btn key btn-secondary">D</button>
+                    <button type="button" class="btn key btn-secondary">F</button>
+                    <button type="button" class="btn key btn-secondary">G</button>
+                    <button type="button" class="btn key btn-secondary">H</button>
+                    <button type="button" class="btn key btn-secondary">J</button>
+                    <button type="button" class="btn key btn-secondary">K</button>
+                    <button type="button" class="btn key btn-secondary">L</button>
                 </div>
-                <div class="third-keyboard keyboard">
-                    <div class="row mt-3 text-center">
-                        <button type="button" id="submit"
-                            class="btn special-key btn-secondary animate__animated animate__tada">
-                            <i class="fas fa-check fa-md"></i>
-                        </button>
-                        <button type="button" class="btn key btn-secondary">Z</button>
-                        <button type="button" class="btn key btn-secondary">X</button>
-                        <button type="button" class="btn key btn-secondary">C</button>
-                        <button type="button" class="btn key btn-secondary">V</button>
-                        <button type="button" class="btn key btn-secondary">B</button>
-                        <button type="button" class="btn key btn-secondary">N</button>
-                        <button type="button" class="btn key btn-secondary">M</button>
-                        <button type="button" id="delete" class="btn special-key btn-secondary">
-                            <i class="fas fa-backspace fa-md"></i>
-                        </button>
-                    </div>
+            </div>
+            <div class="third-keyboard keyboard">
+                <div class="row mt-3 text-center">
+                    <button type="button" id="submit"
+                        class="btn special-key btn-secondary animate__animated animate__tada">
+                        <i class="fas fa-check fa-md"></i>
+                    </button>
+                    <button type="button" class="btn key btn-secondary">Z</button>
+                    <button type="button" class="btn key btn-secondary">X</button>
+                    <button type="button" class="btn key btn-secondary">C</button>
+                    <button type="button" class="btn key btn-secondary">V</button>
+                    <button type="button" class="btn key btn-secondary">B</button>
+                    <button type="button" class="btn key btn-secondary">N</button>
+                    <button type="button" class="btn key btn-secondary">M</button>
+                    <button type="button" id="delete" class="btn special-key btn-secondary">
+                        <i class="fas fa-backspace fa-md"></i>
+                    </button>
                 </div>
             </div>
         </div>

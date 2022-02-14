@@ -95,6 +95,14 @@ def get_current_word():
         return word
 
 
+def get_random_word():
+    with open(THIS_FOLDER + "/six_letter_words.json", "r+") as six_letter_words_file:
+        six_letter_words_json = json.load(six_letter_words_file)
+        chosen_word = random.choice(list(six_letter_words_json.keys()))
+        chosen_word_json = six_letter_words_json[chosen_word]
+        return chosen_word_json
+
+
 def get_all_words():
     with open(THIS_FOLDER + "/six_letter_words.json", "r") as six_letter_words_file:
         word_json = json.load(six_letter_words_file)

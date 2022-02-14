@@ -10,6 +10,7 @@ var word;
 var words;
 var letterValues;
 
+
 $(document).ready(function () {
     // check if on mobile or not
     url = window.location.href;
@@ -21,8 +22,7 @@ $(document).ready(function () {
     fetch(url + '/word')
         .then(response => response.json())
         .then(data => word = data);
-    fetch(url + '/word')
-    fetch('/words')
+    fetch(url + '/words')
         .then(response => response.json())
         .then(data => words = data);
     fetch(url + '/values')
@@ -39,18 +39,24 @@ $(".key").click(function () {
     incrimentTile();
 });
 
-$('#answer-example-share-button').on('click', () => {
+$('.share').on('click', () => {
+    console.log(getShareText());
     if (navigator.share) {
         navigator.share({
-            title: 'Web Share API Draft',
-            text: 'Take a look at this spec!',
-            url: 'https://wicg.github.io/web-share/#share-method',
+            title: 'numbee',
+            text: getShareText(),
+            // url: 'https://numbee.pythonanywhere.com',
         })
             .then(() => console.log('Successful share'))
             .catch((error) => console.log('Error sharing', error));
     } else {
         console.log('Share not supported on this browser, do it the old way.');
     }
+});
+
+$('#generateWordBtn').click(async function () {
+    let suggestion = await fetchSuggestion();
+    $('#suggestion').text(suggestion["word"]);  
 });
 
 $("#submit").click(function () {
@@ -110,6 +116,9 @@ $("#submit").click(function () {
             showAlert("Invalid word!");
             animateCSS("#line" + currentLine, 'shakeX');
         }
+    } else {
+        showAlert("Not long enough!");
+        animateCSS("#line" + currentLine, 'shakeX');
     }
     burst.play();
 });
@@ -237,7 +246,12 @@ function flipTiles(tile, index, array, guess) {
         }
     });
 
-    if (index === array.length - 1) {
+    if (index === array.length - 1 && currentLine === 5) {
+        iteratingTile.addEventListener('transitionend', () => {
+            endGame(guess, array);
+        }, { once: true });
+    }
+    else if (index === array.length - 1) {
         iteratingTile.addEventListener('transitionend', () => {
             checkWin(guess, array);
         }, { once: true });
@@ -277,15 +291,19 @@ function checkWin(guess, tiles) {
         danceTiles(tiles);
         stopInteraction();
         squares = generateSquares();
-        squares.forEach(square => {
-            console.log(square);
-        });
         $("#squares").html(squares);
         $('#winModal').modal('show');
-        $('#winModal').on('hidden.bs.modal', function () {
-            disableInteraction();
-        });
+        // $('#winModal').on('hidden.bs.modal', function () {
+        //     disableInteraction();
+        // });
     }
+}
+
+function endGame(guess, tiles) {
+    stopInteraction();
+    squares = generateSquares();
+    $("#squares-l").html(squares);
+    $('#loseModal').modal('show');
 }
 
 function generateSquares() {
@@ -293,7 +311,6 @@ function generateSquares() {
     var squares = [];
     for (var i = 1; i < 31; i++) {
         var tile = $('#tile' + i);
-        console.log(tile.css('background-color'));
         switch (tile.css('background-color')) {
             case 'rgb(89, 153, 89)':
                 squares.push('🟩');
@@ -315,6 +332,25 @@ function generateSquares() {
         }
     }
     return squares;
+}
+
+function getShareText() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    var squares = generateSquares();
+    var shareText = "numbee " + mm + '/' + dd + '/' + yyyy + "\n\n";
+
+    for (var i = 0; i < squares.length; i++) {
+        if (squares[i] == "<br>") {
+            shareText += "\n";
+            continue;
+        }
+        shareText += squares[i];
+    }
+    return shareText;
 }
 
 function showAlert(message, duration = 1000) {
@@ -351,13 +387,40 @@ function danceTiles(tiles) {
 }
 
 function startInteraction() {
-    const keyboard = document.querySelector('#keyboard');
-    keyboard.classList.remove('stop');
+    const specialKeys = document.querySelectorAll('.special-key');
+    const keys = document.querySelectorAll('.key');
+    keys.forEach(key => {
+        key.classList.remove('stop');
+    });
+    specialKeys.forEach(key => {
+        key.classList.remove('stop');
+    });
 }
 
 function stopInteraction() {
-    const keyboard = document.querySelector('#keyboard');
-    keyboard.classList.add('stop');
+    const specialKeys = document.querySelectorAll('.special-key');
+    const keys = document.querySelectorAll('.key');
+    keys.forEach(key => {
+        key.classList.add('stop');
+    });
+    specialKeys.forEach(key => {
+        key.classList.add('stop');
+    });
+}
+
+function fetchSuggestion() {
+    url = window.location.href;
+    return fetch(url + '/suggest')
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Server response wasn\'t OK');
+            }
+        })
+        .then((suggestion) => {
+            return suggestion;
+        });
 }
 
 window.mobileCheck = function () {
