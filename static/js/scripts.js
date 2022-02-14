@@ -1,7 +1,7 @@
 const beginningTiles = ['tile1', 'tile7', 'tile13', 'tile19', 'tile25'];
 const endingTiles = ['tile6', 'tile12', 'tile18', 'tile24', 'tile30'];
 const FLIP_ANIMATION_DURATION = 500;
-const DANCE_ANIMATION_DURATION = 500
+const DANCE_ANIMATION_DURATION = 500;
 
 var currentTile = $('#tile1');
 var currentLine = 1;
@@ -37,6 +37,20 @@ $(".key").click(function () {
     var key = this.innerHTML;
     currentTile.text(key);
     incrimentTile();
+});
+
+$('#answer-example-share-button').on('click', () => {
+    if (navigator.share) {
+        navigator.share({
+            title: 'Web Share API Draft',
+            text: 'Take a look at this spec!',
+            url: 'https://wicg.github.io/web-share/#share-method',
+        })
+            .then(() => console.log('Successful share'))
+            .catch((error) => console.log('Error sharing', error));
+    } else {
+        console.log('Share not supported on this browser, do it the old way.');
+    }
 });
 
 $("#submit").click(function () {
@@ -83,12 +97,14 @@ $("#submit").click(function () {
     if (jQuery.inArray(currentTile.attr('id'), endingTiles) != -1 && currentTile.text() != "") {
         var guess = buildGuessFromTiles();
         if (words.some(item => item === guess)) {
+            stopInteraction();
             // Flip board
             activeTiles = getActiveTiles();
             activeTiles.forEach((...params) => flipTiles(...params, guess));
 
             // go to next line
             incrimentLine();
+            startInteraction();
         } else {
             // invalid word
             showAlert("Invalid word!");
@@ -260,11 +276,45 @@ function checkWin(guess, tiles) {
         showAlert("You Win!");
         danceTiles(tiles);
         stopInteraction();
-        // $('#win-modal').modal('show');
-        // $('#win-modal').on('hidden.bs.modal', function () {
-        //     location.reload();
-        // });
+        squares = generateSquares();
+        squares.forEach(square => {
+            console.log(square);
+        });
+        $("#squares").html(squares);
+        $('#winModal').modal('show');
+        $('#winModal').on('hidden.bs.modal', function () {
+            disableInteraction();
+        });
     }
+}
+
+function generateSquares() {
+    // iterate through all tiles and if statement based on the css background color
+    var squares = [];
+    for (var i = 1; i < 31; i++) {
+        var tile = $('#tile' + i);
+        console.log(tile.css('background-color'));
+        switch (tile.css('background-color')) {
+            case 'rgb(89, 153, 89)':
+                squares.push('🟩');
+                break;
+            case 'rgb(255, 188, 44)':
+                squares.push('🟨');
+                break;
+            case 'rgb(168, 48, 48)':
+                squares.push('🟥');
+                break;
+            case 'rgb(38, 109, 156)':
+                squares.push('🟦');
+                break;
+            default:
+                return squares;
+        }
+        if (i % 6 === 0) {
+            squares.push("<br>");
+        }
+    }
+    return squares;
 }
 
 function showAlert(message, duration = 1000) {

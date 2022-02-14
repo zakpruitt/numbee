@@ -16,6 +16,8 @@
 <body>
     <div id="all">
         <div class="alert-container" data-alert-container></div>
+        
+        <!-- Heading and Tiles -->
         <div id="game" class="container-fluid">
             <!-- Heading -->
             <div class="header position-sticky ">
@@ -34,7 +36,7 @@
                         <h1 class="title animate__animated animate__rubberBand">numbee</h1>
                     </div>
                     <div class="col-4">
-                        <button class="btn heading_buttons float-end animate__animated animate__fadeInRight">
+                        <button data-bs-toggle="modal" data-bs-target="#winModal" class="btn heading_buttons float-end animate__animated animate__fadeInRight">
                             <i class="fas fa-award fa-lg"></i>
                         </button>
                         <button data-bs-toggle="modal" data-bs-target="#generateWordModal"
@@ -440,10 +442,31 @@
                         <div class="modal-body">
                             <div class="text-center">
                                 <p id="#generatedWord">Click to generate!</p>
+                                <button class="btn btn-primary" id='answer-example-share-button'>Share!</button>
                             </div>
                             <hr>
                             <button class="btn btn-primary float-end"
                             onclick="generateWord()">Generate Word</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="winModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">End of Game {{date}}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="text-center">
+                                Yay, you won! 🎉🎉🎉
+                                <br><br>
+                                <squares id="squares"></squares>
+                            </div>
+                            <hr>
+                            <button class="btn btn-primary float-end" id='answer-example-share-button'>Share</button>
                         </div>
                     </div>
                 </div>

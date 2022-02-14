@@ -1,4 +1,5 @@
 import json
+from datetime import date
 from flask import Flask, render_template
 from word_parser import letter_value, select_word, get_all_words, get_current_word
 
@@ -6,7 +7,9 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("index.html", number=get_current_word()['value'])
+    today = date.today()
+    todayDate = today.strftime("%m/%d/%Y")
+    return render_template("index.html", number=get_current_word()['value'], date=todayDate)
 
 
 @app.route("/not-supported")
@@ -31,4 +34,4 @@ def get_values():
 
 if __name__ == '__main__':
     select_word()
-    app.run()
+    app.run(debug=True)

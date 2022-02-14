@@ -85,12 +85,11 @@ def select_word():
         six_letter_words_json = json.load(six_letter_words_file)
         chosen_word = random.choice(list(six_letter_words_json.keys()))
         chosen_word_json = six_letter_words_json[chosen_word]
-        json.dump(chosen_word_json, open(
-            THIS_FOLDER + "/daily_word.json", "w"), indent=4)
+        json.dump(chosen_word_json, open(THIS_FOLDER + "/daily_word.json", "w"), indent=4)
 
 
 def get_current_word():
-    with open(THIS_FOLDER + "/daily_word.json", "r") as daily_word_file:
+    with open(THIS_FOLDER + "/daily_word.json", "r+") as daily_word_file:
         daily_word_json = json.load(daily_word_file)
         word = daily_word_json
         return word
