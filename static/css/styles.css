@@ -103,6 +103,10 @@ body {
   background-color: #a83030;
 }
 
+.equal {
+  background-color: #ffbc2c;
+}
+
 .tile-placeholder {
   opacity: 0;
 }

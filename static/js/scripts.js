@@ -201,10 +201,23 @@ function buildGuessFromTiles() {
 
 function flipTiles(tile, index, guess) {
     const id = tile.attr('id');
+    const iteratingTile = document.querySelector('#' + id);
     setTimeout(() => {
-        const iteratingTile = document.querySelector('#' + id);
         iteratingTile.classList.add('flip');
     }, index * FLIP_ANIMATION_DURATION / 2);
+
+    iteratingTile.addEventListener('transitionend', () => {
+        iteratingTile.classList.remove("flip");
+        if (guess[index] === word['word'][index]) {
+            iteratingTile.classList.add('correct');
+        } else if (letterValues[guess[index]] === letterValues[word['word'][index]]) {
+            iteratingTile.classList.add('equal');
+        } else if (guess[index] > word['word'][index]) {
+            iteratingTile.classList.add('lower');
+        }  else {
+            iteratingTile.classList.add('higher');
+        }
+    });
 }
 
 function getActiveTiles() {
