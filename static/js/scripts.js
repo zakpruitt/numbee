@@ -273,8 +273,8 @@ function flipTiles(tile, index, array, guess) {
 
     if (index === array.length - 1 && currentLine === 5) {
         iteratingTile.addEventListener('transitionend', () => {
-            checkWin(guess, array);
-            loseGame();
+            if(!checkWin(guess, array))
+                loseGame();
         }, { once: true });
     }
     else if (index === array.length - 1) {
@@ -319,7 +319,10 @@ function checkWin(guess, tiles) {
         squares = generateSquares();
         $("#squares").html(squares);
         $('#winModal').modal('show');
-        endGame();
+        // endGame();
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -327,7 +330,7 @@ function loseGame() {
     squares = generateSquares();
     $("#squares-l").html(squares);
     $('#loseModal').modal('show');
-    endGame();
+    // endGame();
 }
 
 // WIP
