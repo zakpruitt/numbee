@@ -84,12 +84,13 @@ $("#submit").click(function () {
         if (words.some(item => item === guess)) {
             // Flip board
             activeTiles = getActiveTiles();
-            activeTiles.forEach((tile, index) => flipTiles(tile, index, guess));
+            activeTiles.forEach((...params) => flipTiles(...params, guess));
 
             // go to next line
             incrimentLine();
         } else {
             // invalid word
+            showAlert("Invalid word!");
             animateCSS("#line" + currentLine, 'shakeX');
         }
     }
@@ -199,7 +200,7 @@ function buildGuessFromTiles() {
     return guess.toLocaleLowerCase();
 }
 
-function flipTiles(tile, index, guess) {
+function flipTiles(tile, index, array, guess) {
     const id = tile.attr('id');
     const iteratingTile = document.querySelector('#' + id);
     setTimeout(() => {
@@ -214,10 +215,16 @@ function flipTiles(tile, index, guess) {
             iteratingTile.classList.add('equal');
         } else if (guess[index] > word['word'][index]) {
             iteratingTile.classList.add('lower');
-        }  else {
+        } else {
             iteratingTile.classList.add('higher');
         }
     });
+
+    if (index === array.length - 1) {
+        iteratingTile.addEventListener('transitionend', () => {
+            checkWin(guess);
+        });
+    }
 }
 
 function getActiveTiles() {
@@ -245,6 +252,43 @@ function getActiveTiles() {
             break;
     }
     return activeTiles;
+}
+
+function checkWin(guess) {
+    if (guess === word['word']) {
+        showAlert("You Win!");
+        stopInteraction();
+        // $('#win-modal').modal('show');
+        // $('#win-modal').on('hidden.bs.modal', function () {
+        //     location.reload();
+        // });
+    } 
+}
+
+function showAlert(message, duration = 1000) {
+    const alertContainer = document.querySelector("[data-alert-container]")
+    const alert = document.createElement("div")
+    alert.textContent = message
+    alert.classList.add("alert")
+    alertContainer.prepend(alert)
+    if (duration == null) return
+  
+    setTimeout(() => {
+      alert.classList.add("hide")
+      alert.addEventListener("transitionend", () => {
+        alert.remove()
+      })
+    }, duration)
+  }
+
+function startInteraction() {
+    const keyboard = document.querySelector('#keyboard');
+    keyboard.classList.remove('stop');
+}
+
+function stopInteraction() {
+    const keyboard = document.querySelector('#keyboard');
+    keyboard.classList.add('stop');
 }
 
 window.mobileCheck = function () {

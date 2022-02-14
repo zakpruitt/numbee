@@ -21,6 +21,10 @@ body {
   flex-direction: column;
 }
 
+.stop {
+  pointer-events: none;
+}
+
 .header {
   position: sticky !important;
   top: 0;
@@ -223,4 +227,33 @@ body {
     position: absolute;
     float: bottom;
   }
+}
+
+.alert-container {
+  position: fixed;
+  top: 10vh;
+  left: 50vw;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.alert {
+  pointer-events: none;
+  background-color: hsl(204, 7%, 85%);
+  padding: .75em;
+  border-radius: .25em;
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+  margin-bottom: .5em;
+}
+
+.alert:last-child {
+  margin-bottom: 0;
+}
+
+.alert.hide {
+  opacity: 0;
 }

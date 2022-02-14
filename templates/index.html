@@ -14,432 +14,488 @@
 </head>
 
 <body>
-    <div id="game" class="container-fluid">
-        <!-- Heading -->
-        <div class="header position-sticky ">
-            <div class="row mt-3">
-                <div class="col-4">
-                    <button data-bs-toggle="modal" data-bs-target="#howToPlayModal"
-                        class="btn heading_buttons animate__animated animate__fadeInLeft">
-                        <i class="fas fa-question-circle fa-lg"></i>
-                    </button>
-                    <button data-bs-toggle="modal" data-bs-target="#numberScaleModal"
-                        class="btn heading_buttons animate__animated animate__fadeInLeft">
-                        <i class="fas fa-sort-alpha-down fa-lg"></i>
-                    </button>
-                </div>
-                <div class="col-4" id="title_div">
-                    <h1 class="title animate__animated animate__rubberBand">numbee</h1>
-                </div>
-                <div class="col-4">
-                    <button class="btn heading_buttons float-end animate__animated animate__fadeInRight">
-                        <i class="fas fa-award fa-lg"></i>
-                    </button>
-                    <button class="btn heading_buttons float-end animate__animated animate__fadeInRight">
-                        <i class="fas fa-bug fa-lg"></i>
-                    </button>
+    <div id="all">
+        <div class="alert-container" data-alert-container></div>
+        <div id="game" class="container-fluid">
+            <!-- Heading -->
+            <div class="header position-sticky ">
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <button data-bs-toggle="modal" data-bs-target="#howToPlayModal"
+                            class="btn heading_buttons animate__animated animate__fadeInLeft">
+                            <i class="fas fa-question-circle fa-lg"></i>
+                        </button>
+                        <button data-bs-toggle="modal" data-bs-target="#numberScaleModal"
+                            class="btn heading_buttons animate__animated animate__fadeInLeft">
+                            <i class="fas fa-sort-alpha-down fa-lg"></i>
+                        </button>
+                    </div>
+                    <div class="col-4" id="title_div">
+                        <h1 class="title animate__animated animate__rubberBand">numbee</h1>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn heading_buttons float-end animate__animated animate__fadeInRight">
+                            <i class="fas fa-award fa-lg"></i>
+                        </button>
+                        <button data-bs-toggle="modal" data-bs-target="#generateWordModal"
+                            class="btn heading_buttons float-end animate__animated animate__fadeInRight">
+                            <i class="fas fa-hands-helping fa-lg"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Modals -->
-        <div class="modal fade" id="howToPlayModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <h5 class="modal-title">How To Play</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    
+            <hr class="heading_bar">
+    
+            <!-- Tile Section-->
+            <h2 class="mx-auto number">{{number}}</h2>
+            <div class="tile-container">
+                <div class="tile-row row gx-0 text-center mt-4" id="line1">
+                    <div class="col-2">
+                        <div id="tile1" class="tile">
+                            <placeholder class="tile-placeholder">A</placeholder>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        Guess the daily <b>bee</b> that adds up to the daily <b>num</b> in 6 tries or less. <br><br>
-                        Each guess must be a valid 6 letter word. Hit the checkmark button to submit your guess.
-                        <br><br>
-                        After a guess, the color of the tiles will change to reflect the correctness of your
-                        guess.<br><br>
-                        The goal of the game is to build a word, or a bee, that adds up to the daily number, or
-                        <b>num</b>.
-
-                        <hr>
-
-                        <b><u>Example 1</u></b><br><br>
-                        <div class="tile-container">
-                            <div class="row gx-0">
-                                <div class="col-2">
-                                    <div class="tile correct">
-                                        A
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="tile correct">
-                                        N
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="tile correct">
-                                        G
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="tile correct">
-                                        L
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="tile correct">
-                                        E
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="tile lower">
-                                        S
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="mt-4">
-                                In this example, ANGLES was guessed. The tiles colored green are correct. However,
-                                the red tile indicates that the guess was too high.
-                                <br><br>
-                                Since 'S' is 16, I know that the last letter
-                                cannot be
-                                'T', 'V', 'W', 'X', or 'Z'.
-                            </p>
+                    <div class="col-2">
+                        <div id="tile2" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile3" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile4" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile5" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile6" class="tile"></div>
+                    </div>
+                </div>
+                <div class="col-2 result">
+                    <a class="result-txt">10</a>
+                </div>
+                <div class="tile-row row gx-0 text-center mt-5" id="line2">
+                    <div class="col-2">
+                        <div id="tile7" class="tile">
+                            <placeholder class="tile-placeholder">A</placeholder>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile8" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile9" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile10" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile11" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile12" class="tile"></div>
+                    </div>
+                </div>
+                <div class="col-2 result">
+                    <a class="result-txt">10</a>
+                </div>
+                <div class="tile-row row gx-0 text-center mt-5" id="line3">
+                    <div class="col-2">
+                        <div id="tile13" class="tile">
+                            <placeholder class="tile-placeholder">A</placeholder>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile14" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile15" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile16" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile17" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile18" class="tile"></div>
+                    </div>
+                </div>
+                <div class="col-2 result">
+                    <a class="result-txt">10</a>
+                </div>
+                <div class="tile-row row gx-0 text-center mt-5" id="line4">
+                    <div class="col-2">
+                        <div id="tile19" class="tile">
+                            <placeholder class="tile-placeholder">A</placeholder>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile20" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile21" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile22" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile23" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile24" class="tile"></div>
+                    </div>
+                </div>
+                <div class="col-2 result">
+                    <a class="result-txt">10</a>
+                </div>
+                <div class="tile-row row gx-0 text-center mt-5" id="line5">
+                    <div class="col-2">
+                        <div id="tile25" class="tile">
+                            <placeholder class="tile-placeholder">A</placeholder>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile26" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile27" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile28" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile29" class="tile"></div>
+                    </div>
+                    <div class="col-2">
+                        <div id="tile30" class="tile"></div>
+                    </div>
+                </div>
+                <div class="col-2 result">
+                    <a class="result-txt">10</a>
+                </div>
+            </div>
+    
+            <!-- Modals -->
+            <div class="modal fade" id="howToPlayModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header text-center">
+                            <h5 class="modal-title">How To Play</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Guess the daily <b>bee</b> that adds up to the daily <b>num</b> in 5 tries or less. <br><br>
+                            Each guess must be a valid 6 letter word. Hit the checkmark button to submit your guess.
+                            <br><br>
+                            After a guess, the color of the tiles will change to reflect the correctness of your
+                            guess.<br><br>
+                            The goal of the game is to build a word, or a bee, that adds up to the daily number, or
+                            <b>num</b>.
+    
                             <hr>
-                        </div>
-
-                        <b><u>Example 1 Cont.</u></b><br><br>
-                        <div class="tile-container">
-                            <div class="row gx-0">
-                                <div class="col-2">
-                                    <div class="tile correct">
-                                        A
+    
+                            <b><u>Example 1</u></b><br><br>
+                            <div class="tile-container">
+                                <div class="row gx-0">
+                                    <div class="col-2">
+                                        <div class="tile correct">
+                                            A
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile correct">
+                                            N
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile correct">
+                                            G
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile correct">
+                                            L
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile correct">
+                                            E
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile lower">
+                                            S
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-2">
-                                    <div class="tile correct">
-                                        N
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="tile correct">
-                                        G
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="tile correct">
-                                        L
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="tile correct">
-                                        E
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="tile correct">
-                                        D
-                                    </div>
-                                </div>
+                                <p class="mt-4">
+                                    In this example, ANGLES was guessed. The tiles colored green are correct. However,
+                                    the red tile indicates that the guess was too high.
+                                    <br><br>
+                                    Since 'S' is 16, the last letter
+                                    cannot be
+                                    'T', 'V', 'W', 'X', or 'Z'.
+                                </p>
+                                <hr>
                             </div>
-                            <p class="mt-4">
-                                Now that the player knows the last letter cannot be 'S', the player can form other words, such as ANGLED and ANGLER.
-                                <br><br>
-                                Since today's <b>num</b> is 34, I know that ANGLER is not the answer because its sum is 45.
-                                <br><br>
-                                ANGLED adds up to today's <b>num</b>, so it's a safe and sure bet to be today's <b>bee</b>!
-                            </p>
+    
+                            <b><u>Example 1 Cont.</u></b><br><br>
+                            <div class="tile-container">
+                                <div class="row gx-0">
+                                    <div class="col-2">
+                                        <div class="tile correct">
+                                            A
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile correct">
+                                            N
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile correct">
+                                            G
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile correct">
+                                            L
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile correct">
+                                            E
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile correct">
+                                            D
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="mt-4">
+                                    Due to the last guess' reveal, the last letter cannot be 'S'. As such, more guesses can
+                                    be formed, such as ANGLED and ANGLER.
+                                    <br><br>
+                                    Since today's example <b>num</b> is 34, ANGLER is not the answer because its sum is 45.
+                                    <br><br>
+                                    ANGLED adds up to today's <b>num</b>, so it's a safe and sure bet to be today's
+                                    <b>bee</b>!
+                                </p>
+                                <hr>
+                            </div>
+    
+                            <b><u>Example 2</u></b><br><br>
+                            <div class="tile-container">
+                                <div class="row gx-0">
+                                    <div class="col-2">
+                                        <div class="tile higher">
+                                            P
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile correct">
+                                            A
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile higher">
+                                            P
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile correct">
+                                            A
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile correct">
+                                            Y
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile higher">
+                                            A
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="mt-4">
+                                    The blue tiles indicate the letter is higher. This follows the same logic as above.
+                                </p>
+                                <hr>
+                            </div>
+    
+                            <b><u>Example 3</u></b><br><br>
+                            <div class="tile-container">
+                                <div class="row gx-0">
+                                    <div class="col-2">
+                                        <div class="tile higher">
+                                            V
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile equal">
+                                            E
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile lower">
+                                            L
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile correct">
+                                            V
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile higher">
+                                            E
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="tile equal">
+                                            T
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="mt-4">
+                                    The yellow tiles indicate the letter is equal. This means there IS a vowel at this spot,
+                                    but the guess was not the correct vowel.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="modal fade" id="numberScaleModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Number Scale</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Each consonant follows a numerical order, while vowels are ALWAYS worth 1.
+                            <br><br>
+                            For example, the word ATTACK is worth 1 + 17 + 17 + 1 + 3 + 9 = 40.
                             <hr>
-                        </div>
-                        
-                        <b><u>Example 2</u></b><br><br>
-                        <div class="tile-container">
-                            <div class="row gx-0">
-                                <div class="col-2">
-                                    <div class="tile higher">
-                                        P
+                            <div class="text-center">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <p>
+                                            A — 1<br>
+                                            B — 2<br>
+                                            C — 3<br>
+                                            D — 4<br>
+                                            E — 1<br>
+                                            F — 5<br>
+                                            G — 6<br>
+                                            H — 7<br>
+                                            I — 1<br>
+                                        </p>
                                     </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="tile correct">
-                                        A
+                                    <div class="col-4">
+                                        <p>
+                                            J — 8<br>
+                                            K — 9<br>
+                                            L — 10<br>
+                                            M — 11<br>
+                                            N — 12<br>
+                                            O — 1<br>
+                                            P — 13<br>
+                                            Q — 14<br>
+                                            R — 15<br>
+                                        </p>
                                     </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="tile higher">
-                                        P
+                                    <div class="col-4">
+                                        <p>
+                                            S — 16<br>
+                                            T — 17<br>
+                                            U — 1<br>
+                                            V — 18<br>
+                                            W — 19<br>
+                                            X — 20<br>
+                                            Y — 1<br>
+                                            Z — 21
+                                        </p>
                                     </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="tile correct">
-                                        A
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="tile correct">
-                                        Y
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="tile higher">
-                                        A
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="mt-4">
-                                The blue tiles indicate the letter is higher. This follows the same logic as above.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="numberScaleModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Number Scale</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Each consonant follows a numerical order, while vowels are ALWAYS worth 1.
-                        <br><br>
-                        For example, the word ATTACK is worth 1 + 17 + 17 + 1 + 3 + 9 = 40.
-                        <hr>
-                        <div class="text-center">
-                            <div class="row">
-                                <div class="col-4">
-                                    <p>
-                                        a - 1<br>
-                                        b - 2<br>
-                                        c - 3<br>
-                                        d - 4<br>
-                                        e - 1<br>
-                                        f - 5<br>
-                                        g - 6<br>
-                                        h - 7<br>
-                                        i - 1<br>
-                                    </p>
-                                </div>
-                                <div class="col-4">
-                                    <p>
-                                        j - 8<br>
-                                        k - 9<br>
-                                        l - 10<br>
-                                        m - 11<br>
-                                        n - 12<br>
-                                        o - 1<br>
-                                        p - 13<br>
-                                        q - 14<br>
-                                        r - 15<br>
-                                    </p>
-                                </div>
-                                <div class="col-4">
-                                    <p>
-                                        s - 16<br>
-                                        t - 17<br>
-                                        u - 1<br>
-                                        v - 18<br>
-                                        w - 19<br>
-                                        x - 20<br>
-                                        y - 1<br>
-                                        z - 21
-                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- <div class="modal fade" id="screenSizeModal" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <a>Numbee is designed to be played on a smartphone to get the full experience.</a>
-                </div>
-            </div>
-        </div> -->
-
-        <hr class="heading_bar">
-
-        <!-- Tile Section-->
-        <h2 class="mx-auto number">43</h2>
-        <div class="tile-container">
-            <div class="tile-row row gx-0 text-center mt-4" id="line1">
-                <div class="col-2">
-                    <div id="tile1" class="tile">
-                        <placeholder class="tile-placeholder">A</placeholder>
+    
+            <div class="modal fade" id="generateWordModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Word Generator</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <p id="#generatedWord">Click to generate!</p>
+                            </div>
+                            <hr>
+                            <button class="btn btn-primary float-end"
+                            onclick="generateWord()">Generate Word</button>
+                        </div>
                     </div>
                 </div>
-                <div class="col-2">
-                    <div id="tile2" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile3" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile4" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile5" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile6" class="tile"></div>
-                </div>
-            </div>
-            <div class="col-2 result">
-                <a class="result-txt">10</a>
-            </div>
-            <div class="tile-row row gx-0 text-center mt-5" id="line2">
-                <div class="col-2">
-                    <div id="tile7" class="tile">
-                        <placeholder class="tile-placeholder">A</placeholder>
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div id="tile8" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile9" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile10" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile11" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile12" class="tile"></div>
-                </div>
-            </div>
-            <div class="col-2 result">
-                <a class="result-txt">10</a>
-            </div>
-            <div class="tile-row row gx-0 text-center mt-5" id="line3">
-                <div class="col-2">
-                    <div id="tile13" class="tile">
-                        <placeholder class="tile-placeholder">A</placeholder>
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div id="tile14" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile15" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile16" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile17" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile18" class="tile"></div>
-                </div>
-            </div>
-            <div class="col-2 result">
-                <a class="result-txt">10</a>
-            </div>
-            <div class="tile-row row gx-0 text-center mt-5" id="line4">
-                <div class="col-2">
-                    <div id="tile19" class="tile">
-                        <placeholder class="tile-placeholder">A</placeholder>
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div id="tile20" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile21" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile22" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile23" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile24" class="tile"></div>
-                </div>
-            </div>
-            <div class="col-2 result">
-                <a class="result-txt">10</a>
-            </div>
-            <div class="tile-row row gx-0 text-center mt-5" id="line5">
-                <div class="col-2">
-                    <div id="tile25" class="tile">
-                        <placeholder class="tile-placeholder">A</placeholder>
-                    </div>
-                </div>
-                <div class="col-2">
-                    <div id="tile26" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile27" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile28" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile29" class="tile"></div>
-                </div>
-                <div class="col-2">
-                    <div id="tile30" class="tile"></div>
-                </div>
-            </div>
-            <div class="col-2 result">
-                <a class="result-txt">10</a>
             </div>
         </div>
-        
-        
-    </div>
-
-    <!-- Keyboard -->
-    <div class="keyboard-container">
-        <div id="keyboard">
-            <div class="first-keyboard keyboard">
-                <div class="row text-center">
-                    <button type="button" class="btn key btn-secondary">Q</button>
-                    <button type="button" class="btn key btn-secondary">W</button>
-                    <button type="button" class="btn key btn-secondary">E</button>
-                    <button type="button" class="btn key btn-secondary">R</button>
-                    <button type="button" class="btn key btn-secondary">T</button>
-                    <button type="button" class="btn key btn-secondary">Y</button>
-                    <button type="button" class="btn key btn-secondary">U</button>
-                    <button type="button" class="btn key btn-secondary">I</button>
-                    <button type="button" class="btn key btn-secondary">O</button>
-                    <button type="button" class="btn key btn-secondary">P</button>
+        <!-- Keyboard -->
+        <div class="keyboard-container">
+            <div id="keyboard">
+                <div class="first-keyboard keyboard">
+                    <div class="row text-center">
+                        <button type="button" class="btn key btn-secondary">Q</button>
+                        <button type="button" class="btn key btn-secondary">W</button>
+                        <button type="button" class="btn key btn-secondary">E</button>
+                        <button type="button" class="btn key btn-secondary">R</button>
+                        <button type="button" class="btn key btn-secondary">T</button>
+                        <button type="button" class="btn key btn-secondary">Y</button>
+                        <button type="button" class="btn key btn-secondary">U</button>
+                        <button type="button" class="btn key btn-secondary">I</button>
+                        <button type="button" class="btn key btn-secondary">O</button>
+                        <button type="button" class="btn key btn-secondary">P</button>
+                    </div>
                 </div>
-            </div>
-            <div class="second-keyboard keyboard">
-                <div class="row mt-3" style="margin-left: 20px;">
-                    <button type="button" class="btn key btn-secondary">A</button>
-                    <button type="button" class="btn key btn-secondary">S</button>
-                    <button type="button" class="btn key btn-secondary">D</button>
-                    <button type="button" class="btn key btn-secondary">F</button>
-                    <button type="button" class="btn key btn-secondary">G</button>
-                    <button type="button" class="btn key btn-secondary">H</button>
-                    <button type="button" class="btn key btn-secondary">J</button>
-                    <button type="button" class="btn key btn-secondary">K</button>
-                    <button type="button" class="btn key btn-secondary">L</button>
+                <div class="second-keyboard keyboard">
+                    <div class="row mt-3" style="margin-left: 20px;">
+                        <button type="button" class="btn key btn-secondary">A</button>
+                        <button type="button" class="btn key btn-secondary">S</button>
+                        <button type="button" class="btn key btn-secondary">D</button>
+                        <button type="button" class="btn key btn-secondary">F</button>
+                        <button type="button" class="btn key btn-secondary">G</button>
+                        <button type="button" class="btn key btn-secondary">H</button>
+                        <button type="button" class="btn key btn-secondary">J</button>
+                        <button type="button" class="btn key btn-secondary">K</button>
+                        <button type="button" class="btn key btn-secondary">L</button>
+                    </div>
                 </div>
-            </div>
-            <div class="third-keyboard keyboard">
-                <div class="row mt-3 text-center">
-                    <button type="button" id="submit" class="btn special-key btn-secondary animate__animated animate__tada">
-                        <i class="fas fa-check fa-md"></i>
-                    </button>
-                    <button type="button" class="btn key btn-secondary">Z</button>
-                    <button type="button" class="btn key btn-secondary">X</button>
-                    <button type="button" class="btn key btn-secondary">C</button>
-                    <button type="button" class="btn key btn-secondary">V</button>
-                    <button type="button" class="btn key btn-secondary">B</button>
-                    <button type="button" class="btn key btn-secondary">N</button>
-                    <button type="button" class="btn key btn-secondary">M</button>
-                    <button type="button" id="delete" class="btn special-key btn-secondary">
-                        <i class="fas fa-backspace fa-md"></i>
-                    </button>
+                <div class="third-keyboard keyboard">
+                    <div class="row mt-3 text-center">
+                        <button type="button" id="submit"
+                            class="btn special-key btn-secondary animate__animated animate__tada">
+                            <i class="fas fa-check fa-md"></i>
+                        </button>
+                        <button type="button" class="btn key btn-secondary">Z</button>
+                        <button type="button" class="btn key btn-secondary">X</button>
+                        <button type="button" class="btn key btn-secondary">C</button>
+                        <button type="button" class="btn key btn-secondary">V</button>
+                        <button type="button" class="btn key btn-secondary">B</button>
+                        <button type="button" class="btn key btn-secondary">N</button>
+                        <button type="button" class="btn key btn-secondary">M</button>
+                        <button type="button" id="delete" class="btn special-key btn-secondary">
+                            <i class="fas fa-backspace fa-md"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

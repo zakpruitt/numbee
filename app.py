@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html", number=get_current_word()['value'])
 
 
 @app.route("/not-supported")
@@ -31,4 +31,4 @@ def get_values():
 
 if __name__ == '__main__':
     select_word()
-    app.run(debug=True)
+    app.run()
