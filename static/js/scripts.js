@@ -12,8 +12,6 @@ var letterValues;
 
 
 $(document).ready(function () {
-    showAlert("It is a known issue that you may need to tap delete twice to clear the text field.", 2500);
-
     // check if on mobile or not
     url = window.location.href;
     if (!window.mobileCheck()) {
@@ -167,15 +165,18 @@ $("#delete").click(function () {
     });
     //#endregion
 
-    if (jQuery.inArray(currentTile.attr('id'), beginningTiles) != -1) {
+    if (jQuery.inArray(currentTile.attr('id'), endingTiles) != -1 && currentTile.text() != "") {
         calculateCurrentLine(currentTile.text(), "subtract");
         currentTile.text('');
-        currentTile.append('<placeholder class="tile-placeholder">!</placeholder>');
-        return;
+    } else {
+        decrementTile();
+        calculateCurrentLine(currentTile.text(), "subtract");
+        currentTile.text('');
+        
+        if (jQuery.inArray(currentTile.attr('id'), beginningTiles) != -1) {
+            currentTile.append('<placeholder class="tile-placeholder">!</placeholder>');
+        }
     }
-    calculateCurrentLine(currentTile.text(), "subtract");
-    currentTile.text('');
-    decrementTile();
     burst.play();
 });
 
