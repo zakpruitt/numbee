@@ -265,7 +265,7 @@ function flipTiles(tile, index, array, guess) {
             iteratingTile.classList.add('correct');
         } else if (letterValues[guess[index]] === letterValues[word['word'][index]]) {
             iteratingTile.classList.add('equal');
-        } else if (guess[index] > word['word'][index]) {
+        } else if (letterValues[guess[index]] > letterValues[word['word'][index]]) {
             iteratingTile.classList.add('lower');
         } else {
             iteratingTile.classList.add('higher');
