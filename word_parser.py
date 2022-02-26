@@ -42,17 +42,16 @@ def calculate_word_value(word):
 
 
 def load_words(word_to_remove="none"):
-    with open(THIS_FOLDER + '/words.json') as words_file, open(THIS_FOLDER + "/six_letter_words.json", "r+") as six_letter_words_file:
+    with open(THIS_FOLDER + '/selectable_words.json', "r") as words_file, open(THIS_FOLDER + "/six_letter_words.json", "r+") as six_letter_words_file:
         word_json = json.load(words_file)
         six_letter_words_json = {}
-        for key, value in word_json.items():
-            if (key == word_to_remove):
+        for word in word_json:
+            if (word == word_to_remove):
                 continue
-            elif (len(key) == 6):
-                word_value = calculate_word_value(key)
-                six_letter_words_json[key] = {
-                    "word": key,
-                    "definition": value,
+            elif (len(word) == 6):
+                word_value = calculate_word_value(word)
+                six_letter_words_json[word] = {
+                    "word": word,
                     "value": word_value
                 }
         json.dump(six_letter_words_json, six_letter_words_file, indent=4)
@@ -104,11 +103,18 @@ def get_random_word():
 
 
 def get_all_words():
-    with open(THIS_FOLDER + "/six_letter_words.json", "r") as six_letter_words_file:
-        word_json = json.load(six_letter_words_file)
+    with open(THIS_FOLDER + "/all_words.json", "r") as all_words_file:
+        word_json = json.load(all_words_file)
         words = [word for word in word_json.keys()]
         word_response = json.dumps(words)
         return word_response
+
+
+def text_to_json():
+    with open(THIS_FOLDER + "/selectable_words.json", "w") as selectable_words_file:
+        f = open(THIS_FOLDER + "/20k.txt", "r")
+        words = f.read().splitlines()
+        json.dump(words, selectable_words_file, indent=4)
 
 
 if __name__ == "__main__":
